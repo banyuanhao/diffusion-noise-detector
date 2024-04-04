@@ -5,7 +5,7 @@
 # dataset one class
 auto_scale_lr = dict(base_batch_size=16, enable=False)
 backend_args = None
-data_root = 'dataset/ODFN/version_2/'
+data_root = '/mnt/data0/banyuanhao/ODFN/version_2/'
 dataset_type = 'CocoDataset'
 default_hooks = dict(
     checkpoint=dict(interval=1, type='CheckpointHook'),
@@ -158,7 +158,7 @@ test_dataloader = dict(
         ann_file='test/annotations/test_for_1_category_1_class.json',
         backend_args=None,
         data_prefix=dict(img=''),
-        data_root='dataset/ODFN/version_2/',
+        data_root=data_root,
         pipeline=[
             dict(backend_args=None, type='LoadImageFromNPY'),
             dict(keep_ratio=True, scale=(
@@ -183,7 +183,7 @@ test_dataloader = dict(
     persistent_workers=True,
     sampler=dict(shuffle=False, type='DefaultSampler'))
 test_evaluator = dict(
-    ann_file='dataset/ODFN/version_2/test/annotations/test_for_1_category_1_class.json',
+    ann_file= data_root + 'test/annotations/test_for_1_category_1_class.json',
     backend_args=None,
     format_only=False,
     metric='bbox',
@@ -217,7 +217,7 @@ train_dataloader = dict(
         ann_file='train/annotations/train_for_1_category_1_class.json',
         backend_args=None,
         data_prefix=dict(img=''),
-        data_root='dataset/ODFN/version_2/',
+        data_root=data_root,
         filter_cfg=dict(filter_empty_gt=True, min_size=32),
         pipeline=[
             dict(backend_args=None, type='LoadImageFromNPY'),
@@ -272,7 +272,7 @@ val_dataloader = dict(
         ann_file='val/annotations/val_for_1_category_1_class.json',
         backend_args=None,
         data_prefix=dict(img=''),
-        data_root='dataset/ODFN/version_2/',
+        data_root=data_root,
         pipeline=[
             dict(backend_args=None, type='LoadImageFromNPY'),
             dict(keep_ratio=True, scale=(
@@ -297,7 +297,7 @@ val_dataloader = dict(
     persistent_workers=True,
     sampler=dict(shuffle=False, type='DefaultSampler'))
 val_evaluator = dict(
-    ann_file='dataset/ODFN/version_2/val/annotations/val_for_1_category_1_class.json',
+    ann_file = data_root + 'val/annotations/val_for_1_category_1_class.json',
     backend_args=None,
     format_only=False,
     metric='bbox',

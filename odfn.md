@@ -22,4 +22,4 @@ pip install diffusers["torch"] transformers
 huggingface-cli login
 
 ## training
-./tools/dist_test.sh ${CONFIG_FILE} ${CHECKPOINT_FILE} ${GPU_NUM} [--out ${RESULT_FILE}] [--eval ${EVAL_METRICS}]
+scripts/generating/dist_train.sh odfn_config/template.py 8
