@@ -1,0 +1,1 @@
+from mmcv.transforms import LoadImageFromFile

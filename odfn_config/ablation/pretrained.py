@@ -3,7 +3,7 @@
 # one category
 # augmentations
 # dataset one class
-# pretrain
+# no_pretrain
 auto_scale_lr = dict(base_batch_size=16, enable=False)
 backend_args = None
 data_root = '/mnt/data0/banyuanhao/ODFN/version_2/'
@@ -38,7 +38,7 @@ model = dict(
         frozen_stages=1,
         groups=32,
         init_cfg=dict(
-            checkpoint='open-mmlab://resnext101_32x4d', type='Pretrained'),
+            checkpoint=None),
         norm_cfg=dict(requires_grad=True, type='BN'),
         norm_eval=True,
         num_stages=4,

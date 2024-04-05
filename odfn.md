@@ -12,7 +12,7 @@ mim download mmdet --config gfl_x101-32x4d-dconv-c4-c5_fpn_ms-2x_coco --dest .
 
 
 ### environment
-python=3.10
+conda create -n odfn python=3.10
 conda install pytorch=1.11 torchvision torchaudio pytorch-cuda -c pytorch -c nvidia
 pip install -U openmim
 mim install mmengine
@@ -22,4 +22,6 @@ pip install diffusers["torch"] transformers
 huggingface-cli login
 
 ## training
-scripts/generating/dist_train.sh odfn_config/template.py 8
+scripts/generating/dist_train.sh odfn_config/_.py 4 --work-dir /mnt/data0/banyuanhao/ODFN/work_dirs
+
+scripts/generating/dist_train.sh odfn_config/ablation/pretrained.py 4 --work-dir /mnt/data0/banyuanhao/ODFN/work_dirs
