@@ -1,0 +1,641 @@
+nohup: ignoring input
+/home/banyh2000/anaconda3/envs/odfn/lib/python3.8/site-packages/mmengine/utils/dl_utils/setup_env.py:56: UserWarning: Setting MKL_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed.
+  warnings.warn(
+/home/banyh2000/anaconda3/envs/odfn/lib/python3.8/site-packages/mmengine/utils/dl_utils/setup_env.py:56: UserWarning: Setting MKL_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed.
+  warnings.warn(
+/home/banyh2000/anaconda3/envs/odfn/lib/python3.8/site-packages/mmengine/utils/dl_utils/setup_env.py:56: UserWarning: Setting MKL_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed.
+  warnings.warn(
+/home/banyh2000/anaconda3/envs/odfn/lib/python3.8/site-packages/mmengine/utils/dl_utils/setup_env.py:56: UserWarning: Setting MKL_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed.
+  warnings.warn(
+/home/banyh2000/anaconda3/envs/odfn/lib/python3.8/site-packages/mmengine/utils/dl_utils/setup_env.py:56: UserWarning: Setting MKL_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed.
+  warnings.warn(
+/home/banyh2000/anaconda3/envs/odfn/lib/python3.8/site-packages/mmengine/utils/dl_utils/setup_env.py:56: UserWarning: Setting MKL_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed.
+  warnings.warn(
+/home/banyh2000/anaconda3/envs/odfn/lib/python3.8/site-packages/mmengine/utils/dl_utils/setup_env.py:56: UserWarning: Setting MKL_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed.
+  warnings.warn(
+/home/banyh2000/anaconda3/envs/odfn/lib/python3.8/site-packages/mmengine/utils/dl_utils/setup_env.py:56: UserWarning: Setting MKL_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed.
+  warnings.warn(
+04/04 23:30:24 - mmengine - INFO - 
+------------------------------------------------------------
+System environment:
+    sys.platform: linux
+    Python: 3.8.18 (default, Sep 11 2023, 13:40:15) [GCC 11.2.0]
+    CUDA available: True
+    numpy_random_seed: 469778508
+    GPU 0,1,2,3,4,5,6,7: NVIDIA GeForce GTX 1080 Ti
+    CUDA_HOME: /usr/local/cuda
+    NVCC: Cuda compilation tools, release 11.6, V11.6.124
+    GCC: gcc (GCC) 4.8.5 20150623 (Red Hat 4.8.5-44)
+    PyTorch: 1.11.0
+    PyTorch compiling details: PyTorch built with:
+  - GCC 7.3
+  - C++ Version: 201402
+  - Intel(R) oneAPI Math Kernel Library Version 2023.1-Product Build 20230303 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v2.5.2 (Git Hash a9302535553c73243c632ad3c4c80beec3d19a1e)
+  - OpenMP 201511 (a.k.a. OpenMP 4.5)
+  - LAPACK is enabled (usually provided by MKL)
+  - NNPACK is enabled
+  - CPU capability usage: AVX2
+  - CUDA Runtime 11.5
+  - NVCC architecture flags: -gencode;arch=compute_37,code=sm_37;-gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_61,code=sm_61;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_80,code=sm_80;-gencode;arch=compute_86,code=sm_86;-gencode;arch=compute_37,code=compute_37
+  - CuDNN 8.3.2
+  - Magma 2.6.1
+  - Build settings: BLAS_INFO=mkl, BUILD_TYPE=Release, CUDA_VERSION=11.5, CUDNN_VERSION=8.3.2, CXX_COMPILER=/opt/rh/devtoolset-7/root/usr/bin/c++, CXX_FLAGS= -Wno-deprecated -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -fopenmp -DNDEBUG -DUSE_KINETO -DUSE_FBGEMM -DUSE_QNNPACK -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE -DEDGE_PROFILER_USE_KINETO -O2 -fPIC -Wno-narrowing -Wall -Wextra -Werror=return-type -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-sign-compare -Wno-unused-parameter -Wno-unused-function -Wno-unused-result -Wno-unused-local-typedefs -Wno-strict-overflow -Wno-strict-aliasing -Wno-error=deprecated-declarations -Wno-stringop-overflow -Wno-psabi -Wno-error=pedantic -Wno-error=redundant-decls -Wno-error=old-style-cast -fdiagnostics-color=always -faligned-new -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Wno-stringop-overflow, LAPACK_INFO=mkl, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, TORCH_VERSION=1.11.0, USE_CUDA=ON, USE_CUDNN=ON, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_MKL=ON, USE_MKLDNN=OFF, USE_MPI=OFF, USE_NCCL=ON, USE_NNPACK=ON, USE_OPENMP=ON, USE_ROCM=OFF, 
+
+    TorchVision: 0.12.0
+    OpenCV: 4.9.0
+    MMEngine: 0.10.2
+
+Runtime environment:
+    cudnn_benchmark: False
+    dist_cfg: {'backend': 'nccl'}
+    mp_cfg: {'mp_start_method': 'fork', 'opencv_num_threads': 0}
+    seed: 469778508
+    Distributed launcher: pytorch
+    Distributed training: True
+    GPU number: 8
+------------------------------------------------------------
+
+04/04 23:30:24 - mmengine - INFO - Config:
+auto_scale_lr = dict(base_batch_size=16, enable=False)
+backend_args = None
+classes = 'object'
+data_root = '/nfs/data/yuanhaoban/ODFN/version_2/'
+dataset_type = 'CocoDataset'
+default_hooks = dict(
+    checkpoint=dict(interval=1, type='CheckpointHook'),
+    logger=dict(interval=50, type='LoggerHook'),
+    param_scheduler=dict(type='ParamSchedulerHook'),
+    sampler_seed=dict(type='DistSamplerSeedHook'),
+    timer=dict(type='IterTimerHook'),
+    visualization=dict(type='DetVisualizationHook'))
+default_scope = 'mmdet'
+env_cfg = dict(
+    cudnn_benchmark=False,
+    dist_cfg=dict(backend='nccl'),
+    mp_cfg=dict(mp_start_method='fork', opencv_num_threads=0))
+launcher = 'pytorch'
+load_from = None
+log_level = 'INFO'
+log_processor = dict(by_epoch=True, type='LogProcessor', window_size=50)
+max_epochs = 24
+model = dict(
+    backbone=dict(
+        base_width=4,
+        dcn=dict(deform_groups=1, fallback_on_stride=False, type='DCN'),
+        depth=101,
+        frozen_stages=1,
+        groups=32,
+        in_channels=4,
+        init_cfg=dict(type='Kaiming'),
+        norm_cfg=dict(requires_grad=True, type='BN'),
+        norm_eval=True,
+        num_stages=4,
+        out_indices=(
+            0,
+            1,
+            2,
+            3,
+        ),
+        stage_with_dcn=(
+            False,
+            False,
+            True,
+            True,
+        ),
+        style='pytorch',
+        type='ResNeXt'),
+    bbox_head=dict(
+        anchor_generator=dict(
+            octave_base_scale=8,
+            ratios=[
+                1.0,
+            ],
+            scales_per_octave=1,
+            strides=[
+                8,
+                16,
+                32,
+                64,
+                128,
+            ],
+            type='AnchorGenerator'),
+        feat_channels=256,
+        in_channels=256,
+        loss_bbox=dict(loss_weight=2.0, type='GIoULoss'),
+        loss_cls=dict(
+            beta=2.0,
+            loss_weight=1.0,
+            type='QualityFocalLoss',
+            use_sigmoid=True),
+        loss_dfl=dict(loss_weight=0.25, type='DistributionFocalLoss'),
+        num_classes=1,
+        reg_max=16,
+        stacked_convs=4,
+        type='GFLHead'),
+    data_preprocessor=dict(type='DetDataPreprocessor'),
+    neck=dict(
+        add_extra_convs='on_output',
+        in_channels=[
+            256,
+            512,
+            1024,
+            2048,
+        ],
+        num_outs=5,
+        out_channels=256,
+        start_level=1,
+        type='FPN'),
+    test_cfg=dict(
+        max_per_img=100,
+        min_bbox_size=0,
+        nms=dict(iou_threshold=0.6, type='nms'),
+        nms_pre=1000,
+        score_thr=0.05),
+    train_cfg=dict(
+        allowed_border=-1,
+        assigner=dict(topk=9, type='ATSSAssigner'),
+        debug=False,
+        pos_weight=-1),
+    type='GFL')
+optim_wrapper = dict(
+    optimizer=dict(lr=0.01, momentum=0.9, type='SGD', weight_decay=0.0001),
+    type='OptimWrapper')
+param_scheduler = [
+    dict(
+        begin=0, by_epoch=False, end=500, start_factor=0.001, type='LinearLR'),
+    dict(
+        begin=0,
+        by_epoch=True,
+        end=24,
+        gamma=0.1,
+        milestones=[
+            16,
+            22,
+        ],
+        type='MultiStepLR'),
+]
+resume = False
+test_cfg = dict(type='TestLoop')
+test_dataloader = dict(
+    batch_size=1,
+    dataset=dict(
+        ann_file='test/annotations/test_for_1_category_1_class_npy.json',
+        backend_args=None,
+        data_prefix=dict(img=''),
+        data_root='/nfs/data/yuanhaoban/ODFN/version_2/',
+        metainfo=dict(classes='object'),
+        pipeline=[
+            dict(backend_args=None, type='LoadImageFromNPY'),
+            dict(keep_ratio=True, scale=(
+                1333,
+                800,
+            ), type='Resize'),
+            dict(type='LoadAnnotations', with_bbox=True),
+            dict(
+                meta_keys=(
+                    'img_id',
+                    'img_path',
+                    'ori_shape',
+                    'img_shape',
+                    'scale_factor',
+                ),
+                type='PackDetInputs'),
+        ],
+        serialize_data=False,
+        test_mode=True,
+        type='CocoDataset'),
+    drop_last=False,
+    num_workers=2,
+    persistent_workers=True,
+    sampler=dict(shuffle=False, type='DefaultSampler'))
+test_evaluator = dict(
+    ann_file=
+    '/nfs/data/yuanhaoban/ODFN/version_2/test/annotations/test_for_1_category_1_class_npy.json',
+    backend_args=None,
+    format_only=False,
+    metric='bbox',
+    type='CocoMetric')
+test_pipeline = [
+    dict(backend_args=None, type='LoadImageFromNPY'),
+    dict(keep_ratio=True, scale=(
+        1333,
+        800,
+    ), type='Resize'),
+    dict(type='LoadAnnotations', with_bbox=True),
+    dict(
+        meta_keys=(
+            'img_id',
+            'img_path',
+            'ori_shape',
+            'img_shape',
+            'scale_factor',
+        ),
+        type='PackDetInputs'),
+]
+train_cfg = dict(max_epochs=24, type='EpochBasedTrainLoop', val_interval=1)
+train_dataloader = dict(
+    batch_sampler=dict(type='AspectRatioBatchSampler'),
+    batch_size=2,
+    dataset=dict(
+        ann_file='train/annotations/train_for_1_category_1_class_npy.json',
+        backend_args=None,
+        data_prefix=dict(img=''),
+        data_root='/nfs/data/yuanhaoban/ODFN/version_2/',
+        filter_cfg=dict(filter_empty_gt=True, min_size=32),
+        metainfo=dict(classes='object'),
+        pipeline=[
+            dict(backend_args=None, type='LoadImageFromNPY'),
+            dict(type='LoadAnnotations', with_bbox=True),
+            dict(
+                keep_ratio=True,
+                scale=[
+                    (
+                        1333,
+                        480,
+                    ),
+                    (
+                        1333,
+                        800,
+                    ),
+                ],
+                type='RandomResize'),
+            dict(prob=0.5, type='RandomFlip'),
+            dict(type='PackDetInputs'),
+        ],
+        serialize_data=False,
+        type='CocoDataset'),
+    num_workers=2,
+    persistent_workers=True,
+    sampler=dict(shuffle=True, type='DefaultSampler'))
+train_pipeline = [
+    dict(backend_args=None, type='LoadImageFromNPY'),
+    dict(type='LoadAnnotations', with_bbox=True),
+    dict(
+        keep_ratio=True,
+        scale=[
+            (
+                1333,
+                480,
+            ),
+            (
+                1333,
+                800,
+            ),
+        ],
+        type='RandomResize'),
+    dict(prob=0.5, type='RandomFlip'),
+    dict(type='PackDetInputs'),
+]
+val_cfg = dict(type='ValLoop')
+val_dataloader = dict(
+    batch_size=1,
+    dataset=dict(
+        ann_file='val/annotations/val_for_1_category_1_class_npy.json',
+        backend_args=None,
+        data_prefix=dict(img=''),
+        data_root='/nfs/data/yuanhaoban/ODFN/version_2/',
+        metainfo=dict(classes='object'),
+        pipeline=[
+            dict(backend_args=None, type='LoadImageFromNPY'),
+            dict(keep_ratio=True, scale=(
+                1333,
+                800,
+            ), type='Resize'),
+            dict(type='LoadAnnotations', with_bbox=True),
+            dict(
+                meta_keys=(
+                    'img_id',
+                    'img_path',
+                    'ori_shape',
+                    'img_shape',
+                    'scale_factor',
+                ),
+                type='PackDetInputs'),
+        ],
+        serialize_data=False,
+        test_mode=True,
+        type='CocoDataset'),
+    drop_last=False,
+    num_workers=2,
+    persistent_workers=True,
+    sampler=dict(shuffle=False, type='DefaultSampler'))
+val_evaluator = dict(
+    ann_file=
+    '/nfs/data/yuanhaoban/ODFN/version_2/val/annotations/val_for_1_category_1_class_npy.json',
+    backend_args=None,
+    format_only=False,
+    metric='bbox',
+    type='CocoMetric')
+vis_backends = [
+    dict(type='LocalVisBackend'),
+]
+visualizer = dict(
+    name='visualizer',
+    type='DetLocalVisualizer',
+    vis_backends=[
+        dict(type='LocalVisBackend'),
+    ])
+work_dir = '/nfs/data/banyuanhao/ODFN/work_dirs/pretrained'
+
+/home/banyh2000/anaconda3/envs/odfn/lib/python3.8/site-packages/mmdet/models/dense_heads/anchor_head.py:108: UserWarning: DeprecationWarning: `num_anchors` is deprecated, for consistency or also use `num_base_priors` instead
+  warnings.warn('DeprecationWarning: `num_anchors` is deprecated, '
+/home/banyh2000/anaconda3/envs/odfn/lib/python3.8/site-packages/mmdet/models/dense_heads/anchor_head.py:108: UserWarning: DeprecationWarning: `num_anchors` is deprecated, for consistency or also use `num_base_priors` instead
+  warnings.warn('DeprecationWarning: `num_anchors` is deprecated, '
+/home/banyh2000/anaconda3/envs/odfn/lib/python3.8/site-packages/mmdet/models/dense_heads/anchor_head.py:108: UserWarning: DeprecationWarning: `num_anchors` is deprecated, for consistency or also use `num_base_priors` instead
+  warnings.warn('DeprecationWarning: `num_anchors` is deprecated, '
+/home/banyh2000/anaconda3/envs/odfn/lib/python3.8/site-packages/mmdet/models/dense_heads/anchor_head.py:108: UserWarning: DeprecationWarning: `num_anchors` is deprecated, for consistency or also use `num_base_priors` instead
+  warnings.warn('DeprecationWarning: `num_anchors` is deprecated, '
+/home/banyh2000/anaconda3/envs/odfn/lib/python3.8/site-packages/mmdet/models/dense_heads/anchor_head.py:108: UserWarning: DeprecationWarning: `num_anchors` is deprecated, for consistency or also use `num_base_priors` instead
+  warnings.warn('DeprecationWarning: `num_anchors` is deprecated, '
+/home/banyh2000/anaconda3/envs/odfn/lib/python3.8/site-packages/mmdet/models/dense_heads/anchor_head.py:108: UserWarning: DeprecationWarning: `num_anchors` is deprecated, for consistency or also use `num_base_priors` instead
+  warnings.warn('DeprecationWarning: `num_anchors` is deprecated, '
+/home/banyh2000/anaconda3/envs/odfn/lib/python3.8/site-packages/mmdet/models/dense_heads/anchor_head.py:108: UserWarning: DeprecationWarning: `num_anchors` is deprecated, for consistency or also use `num_base_priors` instead
+  warnings.warn('DeprecationWarning: `num_anchors` is deprecated, '
+/home/banyh2000/anaconda3/envs/odfn/lib/python3.8/site-packages/mmdet/models/dense_heads/anchor_head.py:108: UserWarning: DeprecationWarning: `num_anchors` is deprecated, for consistency or also use `num_base_priors` instead
+  warnings.warn('DeprecationWarning: `num_anchors` is deprecated, '
+loading annotations into memory...
+loading annotations into memory...
+04/04 23:30:25 - mmengine - INFO - Hooks will be executed in the following order:
+before_run:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+before_train:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_train_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) DistSamplerSeedHook                
+ -------------------- 
+before_train_iter:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_train_iter:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+after_train_epoch:
+(NORMAL      ) IterTimerHook                      
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_val:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+before_val_epoch:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+before_val_iter:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_val_iter:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) DetVisualizationHook               
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_val_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+after_val:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+after_train:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_test:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+before_test_epoch:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+before_test_iter:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_test_iter:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) DetVisualizationHook               
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_test_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_test:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+after_run:
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+loading annotations into memory...
+loading annotations into memory...
+loading annotations into memory...
+loading annotations into memory...
+loading annotations into memory...
+04/04 23:30:26 - mmengine - WARNING - object is not a meta file, simply parsed as meta information
+loading annotations into memory...
+Done (t=0.63s)
+creating index...
+Done (t=0.64s)
+creating index...
+Done (t=0.65s)
+creating index...
+Done (t=0.65s)
+creating index...
+Done (t=0.65s)
+creating index...
+Done (t=0.66s)
+creating index...
+index created!
+index created!
+index created!
+index created!
+Done (t=0.70s)
+creating index...
+index created!
+index created!
+index created!
+Done (t=0.74s)
+creating index...
+index created!
+loading annotations into memory...
+Done (t=0.03s)
+creating index...
+index created!
+loading annotations into memory...
+loading annotations into memory...
+Done (t=0.02s)
+creating index...
+index created!
+loading annotations into memory...
+loading annotations into memory...
+loading annotations into memory...
+Done (t=0.02s)
+creating index...
+index created!
+Done (t=0.02s)
+creating index...
+Done (t=0.03s)
+creating index...
+loading annotations into memory...
+index created!
+index created!
+Done (t=0.03s)
+creating index...
+index created!
+loading annotations into memory...
+loading annotations into memory...
+Done (t=0.02s)
+creating index...
+loading annotations into memory...
+index created!
+loading annotations into memory...
+Done (t=0.02s)
+creating index...
+Done (t=0.03s)
+creating index...
+index created!
+loading annotations into memory...
+index created!
+Done (t=0.02s)
+creating index...
+index created!
+Done (t=0.02s)
+creating index...
+index created!
+Done (t=0.02s)
+creating index...
+index created!
+loading annotations into memory...
+loading annotations into memory...
+Done (t=0.03s)
+creating index...
+index created!
+Done (t=0.02s)
+creating index...
+index created!
+loading annotations into memory...
+Done (t=0.03s)
+creating index...
+index created!
+loading annotations into memory...
+Done (t=0.02s)
+creating index...
+index created!
+04/04 23:30:28 - mmengine - WARNING - "FileClient" will be deprecated in future. Please use io functions in https://mmengine.readthedocs.io/en/latest/api/fileio.html#file-io
+04/04 23:30:28 - mmengine - WARNING - "HardDiskBackend" is the alias of "LocalBackend" and the former will be deprecated in future.
+04/04 23:30:28 - mmengine - INFO - Checkpoints will be saved to /nfs/data/banyuanhao/ODFN/work_dirs/pretrained.
+04/04 23:31:12 - mmengine - INFO - Epoch(train)  [1][  50/1093]  lr: 9.9098e-04  eta: 6:26:01  time: 0.8846  data_time: 0.0578  memory: 4300  loss: 1.5635  loss_cls: 0.2918  loss_bbox: 0.7905  loss_dfl: 0.4812
+04/04 23:31:53 - mmengine - INFO - Epoch(train)  [1][ 100/1093]  lr: 1.9920e-03  eta: 6:09:40  time: 0.8130  data_time: 0.0116  memory: 4297  loss: 1.4241  loss_cls: 0.3168  loss_bbox: 0.7045  loss_dfl: 0.4028
+04/04 23:32:32 - mmengine - INFO - Epoch(train)  [1][ 150/1093]  lr: 2.9930e-03  eta: 6:00:55  time: 0.7933  data_time: 0.0115  memory: 4297  loss: 1.4033  loss_cls: 0.3773  loss_bbox: 0.6439  loss_dfl: 0.3821
+04/04 23:33:13 - mmengine - INFO - Epoch(train)  [1][ 200/1093]  lr: 3.9940e-03  eta: 5:57:17  time: 0.8031  data_time: 0.0109  memory: 4297  loss: 5.0302  loss_cls: 4.4328  loss_bbox: 0.3763  loss_dfl: 0.2211
+04/04 23:33:53 - mmengine - INFO - Epoch(train)  [1][ 250/1093]  lr: 4.9950e-03  eta: 5:55:10  time: 0.8070  data_time: 0.0119  memory: 4300  loss: 10.9072  loss_cls: 10.8043  loss_bbox: 0.0627  loss_dfl: 0.0402
+04/04 23:34:33 - mmengine - INFO - Epoch(train)  [1][ 300/1093]  lr: 5.9960e-03  eta: 5:52:38  time: 0.7945  data_time: 0.0118  memory: 4300  loss: 2.2918  loss_cls: 1.9113  loss_bbox: 0.2393  loss_dfl: 0.1411
+04/04 23:35:13 - mmengine - INFO - Epoch(train)  [1][ 350/1093]  lr: 6.9970e-03  eta: 5:50:57  time: 0.7998  data_time: 0.0115  memory: 4300  loss: 1.8119  loss_cls: 0.8702  loss_bbox: 0.5971  loss_dfl: 0.3446
+04/04 23:35:53 - mmengine - INFO - Epoch(train)  [1][ 400/1093]  lr: 7.9980e-03  eta: 5:50:14  time: 0.8127  data_time: 0.0117  memory: 4300  loss: 1.4157  loss_cls: 0.4103  loss_bbox: 0.6387  loss_dfl: 0.3668
+04/04 23:36:33 - mmengine - INFO - Epoch(train)  [1][ 450/1093]  lr: 8.9990e-03  eta: 5:49:01  time: 0.8022  data_time: 0.0124  memory: 4300  loss: 1.3986  loss_cls: 0.4544  loss_bbox: 0.5930  loss_dfl: 0.3513
+04/04 23:37:14 - mmengine - INFO - Epoch(train)  [1][ 500/1093]  lr: 1.0000e-02  eta: 5:48:08  time: 0.8076  data_time: 0.0121  memory: 4300  loss: 1.3755  loss_cls: 0.4205  loss_bbox: 0.5998  loss_dfl: 0.3552
+04/04 23:37:54 - mmengine - INFO - Epoch(train)  [1][ 550/1093]  lr: 1.0000e-02  eta: 5:47:09  time: 0.8037  data_time: 0.0113  memory: 4300  loss: 1.3751  loss_cls: 0.4446  loss_bbox: 0.5864  loss_dfl: 0.3440
+04/04 23:38:34 - mmengine - INFO - Epoch(train)  [1][ 600/1093]  lr: 1.0000e-02  eta: 5:46:22  time: 0.8082  data_time: 0.0126  memory: 4300  loss: 1.4352  loss_cls: 0.4744  loss_bbox: 0.6052  loss_dfl: 0.3556
+04/04 23:39:15 - mmengine - INFO - Epoch(train)  [1][ 650/1093]  lr: 1.0000e-02  eta: 5:45:48  time: 0.8140  data_time: 0.0122  memory: 4300  loss: 1.2564  loss_cls: 0.4123  loss_bbox: 0.5287  loss_dfl: 0.3153
+04/04 23:39:56 - mmengine - INFO - Epoch(train)  [1][ 700/1093]  lr: 1.0000e-02  eta: 5:45:08  time: 0.8112  data_time: 0.0121  memory: 4300  loss: 1.3012  loss_cls: 0.4262  loss_bbox: 0.5537  loss_dfl: 0.3213
+04/04 23:40:37 - mmengine - INFO - Epoch(train)  [1][ 750/1093]  lr: 1.0000e-02  eta: 5:45:03  time: 0.8320  data_time: 0.0121  memory: 4297  loss: 1.2202  loss_cls: 0.4052  loss_bbox: 0.5119  loss_dfl: 0.3032
+04/04 23:41:18 - mmengine - INFO - Epoch(train)  [1][ 800/1093]  lr: 1.0000e-02  eta: 5:44:09  time: 0.8041  data_time: 0.0121  memory: 4300  loss: 1.3147  loss_cls: 0.4101  loss_bbox: 0.5719  loss_dfl: 0.3327
+04/04 23:41:58 - mmengine - INFO - Epoch(train)  [1][ 850/1093]  lr: 1.0000e-02  eta: 5:43:16  time: 0.8041  data_time: 0.0118  memory: 4300  loss: 1.2910  loss_cls: 0.4191  loss_bbox: 0.5527  loss_dfl: 0.3192
+04/04 23:42:38 - mmengine - INFO - Epoch(train)  [1][ 900/1093]  lr: 1.0000e-02  eta: 5:42:14  time: 0.7960  data_time: 0.0121  memory: 4300  loss: 1.3587  loss_cls: 0.4310  loss_bbox: 0.5856  loss_dfl: 0.3421
+04/04 23:43:18 - mmengine - INFO - Epoch(train)  [1][ 950/1093]  lr: 1.0000e-02  eta: 5:41:31  time: 0.8086  data_time: 0.0121  memory: 4297  loss: 1.3752  loss_cls: 0.4397  loss_bbox: 0.5893  loss_dfl: 0.3462
+04/04 23:43:58 - mmengine - INFO - Exp name: pretrained_20240404_233019
+04/04 23:43:58 - mmengine - INFO - Epoch(train)  [1][1000/1093]  lr: 1.0000e-02  eta: 5:40:38  time: 0.8004  data_time: 0.0107  memory: 4300  loss: 1.3323  loss_cls: 0.4345  loss_bbox: 0.5660  loss_dfl: 0.3318
+04/04 23:44:38 - mmengine - INFO - Epoch(train)  [1][1050/1093]  lr: 1.0000e-02  eta: 5:39:52  time: 0.8056  data_time: 0.0115  memory: 4268  loss: 1.3455  loss_cls: 0.4445  loss_bbox: 0.5637  loss_dfl: 0.3372
+04/04 23:45:14 - mmengine - INFO - Exp name: pretrained_20240404_233019
+04/04 23:45:14 - mmengine - INFO - Saving checkpoint at 1 epochs
+04/04 23:45:26 - mmengine - INFO - Epoch(val)  [1][ 50/125]    eta: 0:00:08  time: 0.1148  data_time: 0.0146  memory: 4300  
+04/04 23:45:31 - mmengine - INFO - Epoch(val)  [1][100/125]    eta: 0:00:02  time: 0.1038  data_time: 0.0042  memory: 972  
+04/04 23:45:36 - mmengine - INFO - Evaluating bbox...
+Loading and preparing results...
+DONE (t=0.35s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=10.33s).
+Accumulating evaluation results...
+DONE (t=2.22s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.060
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=1000 ] = 0.232
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=1000 ] = 0.010
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=1000 ] = 0.144
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=1000 ] = 0.069
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=1000 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.224
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=300 ] = 0.224
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=1000 ] = 0.224
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=1000 ] = 0.197
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=1000 ] = 0.314
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=1000 ] = -1.000
+04/04 23:45:49 - mmengine - INFO - bbox_mAP_copypaste: 0.060 0.232 0.010 0.144 0.069 -1.000
+04/04 23:45:49 - mmengine - INFO - Epoch(val) [1][125/125]    coco/bbox_mAP: 0.0600  coco/bbox_mAP_50: 0.2320  coco/bbox_mAP_75: 0.0100  coco/bbox_mAP_s: 0.1440  coco/bbox_mAP_m: 0.0690  coco/bbox_mAP_l: -1.0000  data_time: 0.0082  time: 0.1078
+04/04 23:46:30 - mmengine - INFO - Epoch(train)  [2][  50/1093]  lr: 1.0000e-02  eta: 5:38:53  time: 0.8133  data_time: 0.0182  memory: 4300  loss: 1.2055  loss_cls: 0.4007  loss_bbox: 0.5053  loss_dfl: 0.2996
+04/04 23:47:10 - mmengine - INFO - Epoch(train)  [2][ 100/1093]  lr: 1.0000e-02  eta: 5:38:00  time: 0.7980  data_time: 0.0106  memory: 4300  loss: 1.3321  loss_cls: 0.4224  loss_bbox: 0.5744  loss_dfl: 0.3352
+04/04 23:47:51 - mmengine - INFO - Epoch(train)  [2][ 150/1093]  lr: 1.0000e-02  eta: 5:37:23  time: 0.8142  data_time: 0.0112  memory: 4297  loss: 1.2600  loss_cls: 0.4172  loss_bbox: 0.5275  loss_dfl: 0.3154
+04/04 23:48:30 - mmengine - INFO - Epoch(train)  [2][ 200/1093]  lr: 1.0000e-02  eta: 5:36:28  time: 0.7952  data_time: 0.0115  memory: 4297  loss: 1.2299  loss_cls: 0.4103  loss_bbox: 0.5185  loss_dfl: 0.3011
+04/04 23:49:11 - mmengine - INFO - Epoch(train)  [2][ 250/1093]  lr: 1.0000e-02  eta: 5:35:48  time: 0.8101  data_time: 0.0122  memory: 4268  loss: 1.2432  loss_cls: 0.3993  loss_bbox: 0.5260  loss_dfl: 0.3179
+04/04 23:49:51 - mmengine - INFO - Epoch(train)  [2][ 300/1093]  lr: 1.0000e-02  eta: 5:34:59  time: 0.7998  data_time: 0.0122  memory: 4297  loss: 1.3455  loss_cls: 0.4356  loss_bbox: 0.5755  loss_dfl: 0.3344
+04/04 23:50:31 - mmengine - INFO - Epoch(train)  [2][ 350/1093]  lr: 1.0000e-02  eta: 5:34:14  time: 0.8039  data_time: 0.0117  memory: 4300  loss: 1.2854  loss_cls: 0.4249  loss_bbox: 0.5387  loss_dfl: 0.3218
+/home/banyh2000/anaconda3/envs/odfn/lib/python3.8/site-packages/torch/distributed/launch.py:178: FutureWarning: The module torch.distributed.launch is deprecated
+and will be removed in future. Use torchrun.
+Note that --use_env is set by default in torchrun.
+If your script expects `--local_rank` argument to be set, please
+change it to read from `os.environ['LOCAL_RANK']` instead. See 
+https://pytorch.org/docs/stable/distributed.html#launch-utility for 
+further instructions
+
+  warnings.warn(
+WARNING:torch.distributed.elastic.agent.server.api:Received 1 death signal, shutting down workers
+WARNING:torch.distributed.elastic.multiprocessing.api:Sending process 13679 closing signal SIGHUP
+WARNING:torch.distributed.elastic.multiprocessing.api:Sending process 13680 closing signal SIGHUP
+WARNING:torch.distributed.elastic.multiprocessing.api:Sending process 13681 closing signal SIGHUP
+WARNING:torch.distributed.elastic.multiprocessing.api:Sending process 13682 closing signal SIGHUP
+WARNING:torch.distributed.elastic.multiprocessing.api:Sending process 13683 closing signal SIGHUP
+WARNING:torch.distributed.elastic.multiprocessing.api:Sending process 13684 closing signal SIGHUP
+WARNING:torch.distributed.elastic.multiprocessing.api:Sending process 13685 closing signal SIGHUP
+WARNING:torch.distributed.elastic.multiprocessing.api:Sending process 13686 closing signal SIGHUP
+Traceback (most recent call last):
+  File "/home/banyh2000/anaconda3/envs/odfn/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/home/banyh2000/anaconda3/envs/odfn/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/home/banyh2000/anaconda3/envs/odfn/lib/python3.8/site-packages/torch/distributed/launch.py", line 193, in <module>
+    main()
+  File "/home/banyh2000/anaconda3/envs/odfn/lib/python3.8/site-packages/torch/distributed/launch.py", line 189, in main
+    launch(args)
+  File "/home/banyh2000/anaconda3/envs/odfn/lib/python3.8/site-packages/torch/distributed/launch.py", line 174, in launch
+    run(args)
+  File "/home/banyh2000/anaconda3/envs/odfn/lib/python3.8/site-packages/torch/distributed/run.py", line 715, in run
+    elastic_launch(
+  File "/home/banyh2000/anaconda3/envs/odfn/lib/python3.8/site-packages/torch/distributed/launcher/api.py", line 131, in __call__
+    return launch_agent(self._config, self._entrypoint, list(args))
+  File "/home/banyh2000/anaconda3/envs/odfn/lib/python3.8/site-packages/torch/distributed/launcher/api.py", line 236, in launch_agent
+    result = agent.run()
+  File "/home/banyh2000/anaconda3/envs/odfn/lib/python3.8/site-packages/torch/distributed/elastic/metrics/api.py", line 125, in wrapper
+    result = f(*args, **kwargs)
+  File "/home/banyh2000/anaconda3/envs/odfn/lib/python3.8/site-packages/torch/distributed/elastic/agent/server/api.py", line 709, in run
+    result = self._invoke_run(role)
+  File "/home/banyh2000/anaconda3/envs/odfn/lib/python3.8/site-packages/torch/distributed/elastic/agent/server/api.py", line 850, in _invoke_run
+    time.sleep(monitor_interval)
+  File "/home/banyh2000/anaconda3/envs/odfn/lib/python3.8/site-packages/torch/distributed/elastic/multiprocessing/api.py", line 60, in _terminate_process_handler
+    raise SignalException(f"Process {os.getpid()} got signal: {sigval}", sigval=sigval)
+torch.distributed.elastic.multiprocessing.api.SignalException: Process 13674 got signal: 1

@@ -25,3 +25,5 @@ huggingface-cli login
 scripts/generating/dist_train.sh odfn_config/_.py 8 --work-dir /mnt/data0/banyuanhao/ODFN/work_dirs/_
 
 scripts/generating/dist_train.sh odfn_config/ablation/base.py 8 --work-dir /mnt/data0/banyuanhao/ODFN/work_dirs/base
+
+scripts/generating/dist_train.sh odfn_config/ablation/annotations.py 6 --work-dir /nfs/data/yuanhaoban/ODFN/work_dirs/ablation_annotations
