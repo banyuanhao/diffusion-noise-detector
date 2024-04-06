@@ -1,1 +1,1 @@
-from mmcv.transforms import LoadImageFromFile
+from mmdet.models.backbones.mobilenet_v2 import MobileNetV2
