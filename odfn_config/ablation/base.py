@@ -6,7 +6,7 @@
 # pretrain
 auto_scale_lr = dict(base_batch_size=16, enable=False)
 backend_args = None
-data_root = '/mnt/data0/banyuanhao/ODFN/version_2/'
+data_root = '/nfs/data/yuanhaoban/ODFN/version_2/'
 dataset_type = 'CocoDataset'
 default_hooks = dict(
     checkpoint=dict(interval=1, type='CheckpointHook'),
