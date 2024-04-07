@@ -6,7 +6,7 @@
 # pretrain
 auto_scale_lr = dict(base_batch_size=16, enable=False)
 backend_args = None
-data_root = '/mnt/data0/banyuanhao/ODFN/version_2/'
+data_root = '/nfs/data/yuanhaoban/ODFN/version_2/'
 dataset_type = 'CocoDataset'
 default_hooks = dict(
     checkpoint=dict(interval=1, type='CheckpointHook'),
@@ -32,13 +32,12 @@ model = dict(
         ### byh add
         in_channels=4,
         ### byh end
-        base_width=4,
+        base_width=1,
         dcn=dict(deform_groups=1, fallback_on_stride=False, type='DCN'),
-        depth=101,
+        depth=50,
         frozen_stages=1,
         groups=32,
-        init_cfg=dict(
-            checkpoint='open-mmlab://resnext101_32x4d', type='Pretrained'),
+        init_cfg=dict(type='Kaiming'),
         norm_cfg=dict(requires_grad=True, type='BN'),
         norm_eval=True,
         num_stages=4,
