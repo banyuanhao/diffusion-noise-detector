@@ -23,7 +23,7 @@ env_cfg = dict(
 load_from = None
 log_level = 'INFO'
 log_processor = dict(by_epoch=True, type='LogProcessor', window_size=50)
-max_epochs = 24
+max_epochs = 50
 ### byh add
 classes = ('object')
 ### byh end

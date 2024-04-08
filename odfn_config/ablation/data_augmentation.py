@@ -131,7 +131,7 @@ model = dict(
         pos_weight=-1),
     type='GFL')
 optim_wrapper = dict(
-    optimizer=dict(lr=0.01, momentum=0.9, type='SGD', weight_decay=0.0001),
+    optimizer=dict(lr=0.005, momentum=0.9, type='SGD', weight_decay=0.0001),
     type='OptimWrapper')
 param_scheduler = [
     dict(
@@ -162,11 +162,11 @@ test_dataloader = dict(
         data_root=data_root,
         pipeline=[
             dict(backend_args=None, type='LoadImageFromNPY'),
+            dict(type='LoadAnnotations', with_bbox=True),
             dict(keep_ratio=True, scale=(
-                800,
+                1333,
                 800,
             ), type='Resize'),
-            dict(type='LoadAnnotations', with_bbox=True),
             dict(
                 meta_keys=(
                     'img_id',
@@ -191,11 +191,11 @@ test_evaluator = dict(
     type='CocoMetric')
 test_pipeline = [
     dict(backend_args=None, type='LoadImageFromNPY'),
-    dict(keep_ratio=True, scale=(
-        800,
-        800,
-    ), type='Resize'),
     dict(type='LoadAnnotations', with_bbox=True),
+    dict(keep_ratio=True, scale=(
+                1333,
+                800,
+    ), type='Resize'),
     dict(
         meta_keys=(
             'img_id',
@@ -222,11 +222,11 @@ train_dataloader = dict(
         filter_cfg=dict(filter_empty_gt=True, min_size=32),
         pipeline=[
             dict(backend_args=None, type='LoadImageFromNPY'),
+            dict(type='LoadAnnotations', with_bbox=True),
             dict(keep_ratio=True, scale=(
-                800,
+                1333,
                 800,
             ), type='Resize'),
-            dict(type='LoadAnnotations', with_bbox=True),
             dict(type='PackDetInputs'),
         ],
         type='CocoDataset'),
@@ -237,7 +237,7 @@ train_pipeline = [
     dict(backend_args=None, type='LoadImageFromNPY'),
     dict(type='LoadAnnotations', with_bbox=True),
     dict(keep_ratio=True, scale=(
-                800,
+                1333,
                 800,
             ), type='Resize'),
     dict(type='PackDetInputs'),
@@ -258,7 +258,7 @@ val_dataloader = dict(
             dict(backend_args=None, type='LoadImageFromNPY'),
             dict(type='LoadAnnotations', with_bbox=True),
             dict(keep_ratio=True, scale=(
-                800,
+                1333,
                 800,
             ), type='Resize'),
             dict(
