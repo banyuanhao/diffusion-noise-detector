@@ -4,27 +4,9 @@
 # augmentations
 # dataset one class
 # pretrain
-
-test_pipeline = [
-    dict(backend_args=None, type='LoadImageFromNPY'),
-    dict(type='LoadAnnotations', with_bbox=True),
-    dict(keep_ratio=True, scale=(
-        1333,
-        800,
-    ), type='Resize'),
-    dict(
-        meta_keys=(
-            'img_id',
-            'img_path',
-            'ori_shape',
-            'img_shape',
-            'scale_factor',
-        ),
-        type='PackDetInputs'),
-]
 auto_scale_lr = dict(base_batch_size=16, enable=False)
 backend_args = None
-data_root = '/nfs/data/yuanhaoban/ODFN/version_2/'
+data_root = '/mnt/data0/banyuanhao/ODFN/version_2/'
 dataset_type = 'CocoDataset'
 default_hooks = dict(
     checkpoint=dict(interval=1, type='CheckpointHook'),
@@ -178,7 +160,23 @@ test_dataloader = dict(
         backend_args=None,
         data_prefix=dict(img=''),
         data_root=data_root,
-        pipeline=test_pipeline,
+        pipeline=[
+            dict(backend_args=None, type='LoadImageFromNPY'),
+            dict(keep_ratio=True, scale=(
+                1333,
+                800,
+            ), type='Resize'),
+            dict(type='LoadAnnotations', with_bbox=True),
+            dict(
+                meta_keys=(
+                    'img_id',
+                    'img_path',
+                    'ori_shape',
+                    'img_shape',
+                    'scale_factor',
+                ),
+                type='PackDetInputs'),
+        ],
         test_mode=True,
         type='CocoDataset'),
     drop_last=False,
@@ -191,26 +189,24 @@ test_evaluator = dict(
     format_only=False,
     metric='bbox',
     type='CocoMetric')
-train_cfg = dict(max_epochs=24, type='EpochBasedTrainLoop', val_interval=1)
-train_pipeline = [
+test_pipeline = [
     dict(backend_args=None, type='LoadImageFromNPY'),
-    dict(
-        keep_ratio=True,
-        scale=[
-            (
-                1333,
-                480,
-            ),
-            (
-                1333,
-                800,
-            ),
-        ],
-        type='RandomResize'),
+    dict(keep_ratio=True, scale=(
+        1333,
+        800,
+    ), type='Resize'),
     dict(type='LoadAnnotations', with_bbox=True),
-    dict(prob=0.5, type='RandomFlip'),
-    dict(type='PackDetInputs'),
+    dict(
+        meta_keys=(
+            'img_id',
+            'img_path',
+            'ori_shape',
+            'img_shape',
+            'scale_factor',
+        ),
+        type='PackDetInputs'),
 ]
+train_cfg = dict(max_epochs=24, type='EpochBasedTrainLoop', val_interval=1)
 train_dataloader = dict(
     batch_sampler=dict(type='AspectRatioBatchSampler'),
     batch_size=2,
@@ -224,11 +220,48 @@ train_dataloader = dict(
         data_prefix=dict(img=''),
         data_root=data_root,
         filter_cfg=dict(filter_empty_gt=True, min_size=32),
-        pipeline= train_pipeline,
+        pipeline=[
+            dict(backend_args=None, type='LoadImageFromNPY'),
+            dict(type='LoadAnnotations', with_bbox=True),
+            dict(
+                keep_ratio=True,
+                scale=[
+                    (
+                        1333,
+                        480,
+                    ),
+                    (
+                        1333,
+                        800,
+                    ),
+                ],
+                type='RandomResize'),
+            dict(prob=0.5, type='RandomFlip'),
+            dict(type='PackDetInputs'),
+        ],
         type='CocoDataset'),
     num_workers=2,
     persistent_workers=True,
     sampler=dict(shuffle=True, type='DefaultSampler'))
+train_pipeline = [
+    dict(backend_args=None, type='LoadImageFromNPY'),
+    dict(type='LoadAnnotations', with_bbox=True),
+    dict(
+        keep_ratio=True,
+        scale=[
+            (
+                1333,
+                480,
+            ),
+            (
+                1333,
+                800,
+            ),
+        ],
+        type='RandomResize'),
+    dict(prob=0.5, type='RandomFlip'),
+    dict(type='PackDetInputs'),
+]
 val_cfg = dict(type='ValLoop')
 val_dataloader = dict(
     batch_size=1,
@@ -241,7 +274,23 @@ val_dataloader = dict(
         backend_args=None,
         data_prefix=dict(img=''),
         data_root=data_root,
-        pipeline=test_pipeline,
+        pipeline=[
+            dict(backend_args=None, type='LoadImageFromNPY'),
+            dict(keep_ratio=True, scale=(
+                1333,
+                800,
+            ), type='Resize'),
+            dict(type='LoadAnnotations', with_bbox=True),
+            dict(
+                meta_keys=(
+                    'img_id',
+                    'img_path',
+                    'ori_shape',
+                    'img_shape',
+                    'scale_factor',
+                ),
+                type='PackDetInputs'),
+        ],
         test_mode=True,
         type='CocoDataset'),
     drop_last=False,
