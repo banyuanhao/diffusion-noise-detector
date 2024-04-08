@@ -6,7 +6,7 @@
 # pretrain
 auto_scale_lr = dict(base_batch_size=16, enable=False)
 backend_args = None
-data_root = '/mnt/data0/banyuanhao/ODFN/version_2/'
+data_root = '/nfs/data/yuanhaoban/ODFN/version_2/'
 dataset_type = 'CocoDataset'
 default_hooks = dict(
     checkpoint=dict(interval=1, type='CheckpointHook'),
@@ -23,7 +23,7 @@ env_cfg = dict(
 load_from = None
 log_level = 'INFO'
 log_processor = dict(by_epoch=True, type='LogProcessor', window_size=50)
-max_epochs = 24
+max_epochs = 50
 ### byh add
 classes = ('object')
 ### byh end
@@ -32,24 +32,21 @@ model = dict(
         ### byh add
         in_channels=4,
         ### byh end
-        base_width=4,
+        base_width=1,
         dcn=dict(deform_groups=1, fallback_on_stride=False, type='DCN'),
-        depth=101,
-        frozen_stages=1,
+        depth=34,
+        frozen_stages=0,
         groups=32,
-        init_cfg=dict(
-            checkpoint='open-mmlab://resnext101_32x4d', type='Pretrained'),
+        init_cfg=dict(type='Kaiming'),
         norm_cfg=dict(requires_grad=True, type='BN'),
         norm_eval=True,
-        num_stages=4,
+        num_stages=3,
         out_indices=(
             0,
             1,
             2,
-            3,
         ),
         stage_with_dcn=(
-            False,
             False,
             True,
             True,
@@ -58,17 +55,15 @@ model = dict(
         type='ResNeXt'),
     bbox_head=dict(
         anchor_generator=dict(
-            octave_base_scale=8,
+            octave_base_scale=4,
             ratios=[
                 1.0,
             ],
             scales_per_octave=1,
             strides=[
+                4,
                 8,
                 16,
-                32,
-                64,
-                128,
             ],
             type='AnchorGenerator'),
         feat_channels=256,
@@ -88,7 +83,7 @@ model = dict(
         num_classes=1,
         ### byh end
         reg_max=16,
-        stacked_convs=4,
+        stacked_convs=3,
         type='GFLHead'),
     ### byh modified
     data_preprocessor=dict(
@@ -131,7 +126,7 @@ model = dict(
         pos_weight=-1),
     type='GFL')
 optim_wrapper = dict(
-    optimizer=dict(lr=0.01, momentum=0.9, type='SGD', weight_decay=0.0001),
+    optimizer=dict(lr=0.005, momentum=0.9, type='SGD', weight_decay=0.0001),
     type='OptimWrapper')
 param_scheduler = [
     dict(
