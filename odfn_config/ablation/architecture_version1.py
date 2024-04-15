@@ -41,6 +41,12 @@ model = dict(
         norm_cfg=dict(requires_grad=True, type='BN'),
         norm_eval=True,
         num_stages=3,
+        dilations=[
+            1, 1, 1
+            ],
+        strides=[
+            1, 1, 1
+            ],
         out_indices=(
             0,
             1,
@@ -61,9 +67,9 @@ model = dict(
             ],
             scales_per_octave=1,
             strides=[
+                1,
+                2,
                 4,
-                8,
-                16,
             ],
             type='AnchorGenerator'),
         feat_channels=256,
@@ -107,9 +113,8 @@ model = dict(
             256,
             512,
             1024,
-            2048,
         ],
-        num_outs=5,
+        num_outs=3,
         out_channels=256,
         start_level=1,
         type='FPN'),
@@ -126,7 +131,7 @@ model = dict(
         pos_weight=-1),
     type='GFL')
 optim_wrapper = dict(
-    optimizer=dict(lr=0.005, momentum=0.9, type='SGD', weight_decay=0.0001),
+    optimizer=dict(lr=0.0001, momentum=0.9, type='SGD', weight_decay=0.0001),
     type='OptimWrapper')
 param_scheduler = [
     dict(
@@ -158,8 +163,8 @@ test_dataloader = dict(
         pipeline=[
             dict(backend_args=None, type='LoadImageFromNPY'),
             dict(keep_ratio=True, scale=(
-                1333,
-                800,
+                64,
+                64,
             ), type='Resize'),
             dict(type='LoadAnnotations', with_bbox=True),
             dict(
@@ -187,8 +192,8 @@ test_evaluator = dict(
 test_pipeline = [
     dict(backend_args=None, type='LoadImageFromNPY'),
     dict(keep_ratio=True, scale=(
-        1333,
-        800,
+        64,
+        64,
     ), type='Resize'),
     dict(type='LoadAnnotations', with_bbox=True),
     dict(
@@ -218,20 +223,10 @@ train_dataloader = dict(
         pipeline=[
             dict(backend_args=None, type='LoadImageFromNPY'),
             dict(type='LoadAnnotations', with_bbox=True),
-            dict(
-                keep_ratio=True,
-                scale=[
-                    (
-                        1333,
-                        480,
-                    ),
-                    (
-                        1333,
-                        800,
-                    ),
-                ],
-                type='RandomResize'),
-            dict(prob=0.5, type='RandomFlip'),
+            dict(keep_ratio=True, scale=(
+                64,
+                64,
+            ), type='Resize'),
             dict(type='PackDetInputs'),
         ],
         type='CocoDataset'),
@@ -241,20 +236,10 @@ train_dataloader = dict(
 train_pipeline = [
     dict(backend_args=None, type='LoadImageFromNPY'),
     dict(type='LoadAnnotations', with_bbox=True),
-    dict(
-        keep_ratio=True,
-        scale=[
-            (
-                1333,
-                480,
-            ),
-            (
-                1333,
-                800,
-            ),
-        ],
-        type='RandomResize'),
-    dict(prob=0.5, type='RandomFlip'),
+    dict(keep_ratio=True, scale=(
+        64,
+        64,
+    ), type='Resize'),
     dict(type='PackDetInputs'),
 ]
 val_cfg = dict(type='ValLoop')
@@ -272,8 +257,8 @@ val_dataloader = dict(
         pipeline=[
             dict(backend_args=None, type='LoadImageFromNPY'),
             dict(keep_ratio=True, scale=(
-                1333,
-                800,
+                64,
+                64,
             ), type='Resize'),
             dict(type='LoadAnnotations', with_bbox=True),
             dict(

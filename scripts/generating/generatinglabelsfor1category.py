@@ -1,6 +1,5 @@
 # generating dataset with noise to labels mapping, only for 1 category
 import json
-from tqdm import tqdm
 from utils_odfn import coco_classes, coco_classes_dict, seeds_spilt, seeds_plus_spilt, seeds_dict, seeds_plus_dict,extract_ground_seeds,extract_ground_seeds_plus,version_2_classes,version_1_classes
 
 version = 'version_2'
@@ -10,7 +9,6 @@ elif version == 'version_2':
     extract_ground = extract_ground_seeds_plus
 else:
     raise ValueError('version should be version_1 or version_2')
-
 if version == 'version_2':
     seeds_spilt = seeds_plus_spilt
     seeds_dict = seeds_plus_dict
@@ -54,7 +52,7 @@ for spilt in ['train', 'val', 'test']:
     print(len(annotations_for_1_category))
 
     images_for_1_category = []
-    for seed in tqdm(seeds_sub):
+    for seed in seeds_sub:
         image_tmp = {}
         image_tmp['id'] = seeds_dict[seed]
         image_tmp['file_name'] = f'{spilt}/noises/' + str(seed) + '.png'

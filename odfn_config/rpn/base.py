@@ -101,16 +101,17 @@ model = dict(
                 1.0,
                 1.0,
             ],
-            ### byh change
-            # num_classes=80
-            num_classes=1,
-            ### byh end
             type='DeltaXYWHBBoxCoder'),
+        
         feat_channels=256,
         in_channels=256,
         loss_bbox=dict(loss_weight=1.0, type='L1Loss'),
         loss_cls=dict(
             loss_weight=1.0, type='CrossEntropyLoss', use_sigmoid=True),
+        ### byh change
+        # num_classes=80
+        num_classes=1,
+        ### byh end
         type='RPNHead'),
     test_cfg=dict(
         rpn=dict(
