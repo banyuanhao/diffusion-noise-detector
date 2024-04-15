@@ -14,7 +14,7 @@ data = json.load(open(path, 'r'))
 images = data['images']
 annotations = data['annotations']
 
-image = images[10]
+image = images[9000]
 image_path = image['file_name']
 image_id = image['id']
 
@@ -35,17 +35,13 @@ print(base_path+image_path)
 img = np.load(base_path+image_path)
 
 # do normality test on each small 4*4 patch of img
-from scipy.stats import normaltest
 from scipy.stats import shapiro
 from scipy.stats import anderson
-from scipy.stats import kstest
-from scipy.stats import chisquare
 
 place_holder = np.zeros((64,64),dtype=np.float32)   
 for i in range(0,64,8):
     for j in range(0,64,8):
         print(i,j)
-        print(anderson(img[i:i+8,j:j+8].flatten()))
         place_holder[i:i+8,j:j+8] = shapiro(img[i:i+8,j:j+8].flatten()).pvalue
 
 place_holder = place_holder / np.max(place_holder)
