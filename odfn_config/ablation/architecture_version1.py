@@ -45,7 +45,7 @@ model = dict(
             1, 1, 1
             ],
         strides=[
-            1, 2, 2
+            1, 1, 1
             ],
         out_indices=(
             0,
@@ -67,9 +67,9 @@ model = dict(
             ],
             scales_per_octave=1,
             strides=[
+                1,
+                2,
                 4,
-                8,
-                16,
             ],
             type='AnchorGenerator'),
         feat_channels=256,
