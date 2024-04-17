@@ -6,23 +6,25 @@ import random
 import pickle
 import math
 import matplotlib.pyplot as plt
-seeds_plus = np.load('scripts/odfn/generating/seeds.npy').tolist()
+import json
+
+seeds_plus = np.load('scripts/utils/seeds.npy').tolist()
 
 seeds_plus_dict = {}
 for i, seed in enumerate(seeds_plus):
     seeds_plus_dict[seed] = i
-seeds_plus_shuffled = np.load('scripts/odfn/generating/seeds_plus_shuffle.npy').tolist()
+seeds_plus_shuffled = np.load('scripts/utils/seeds_plus_shuffle.npy').tolist()
 seeds_plus_shuffled_dict = {}
 for i in range(len(seeds_plus)):
-    seeds_plus_shuffled_dict[seeds_plus_shuffled[i]] = seeds_plus[i]
+    seeds_plus_shuffled_dict[seeds_plus[i]] = seeds_plus_shuffled[i]
 
     
 # print(seeds_plus_dict)
 # raise ValueError('stop')
-# with open('scripts/odfn/generating/seeds_dict.pkl', 'wb') as f:
+# with open('scripts/utils/seeds_dict.pkl', 'wb') as f:
 #     pickle.dump(seeds_plus, f)
-# #seeds_plus_dict = np.load('scripts/odfn/generating/seeds_dict.npy', allow_pickle=True)
-# with open('scripts/odfn/generating/seeds_dict.pkl', 'rb') as f:
+# #seeds_plus_dict = np.load('scripts/utils/seeds_dict.npy', allow_pickle=True)
+# with open('scripts/utils/seeds_dict.pkl', 'rb') as f:
 #     seeds_plus_dict = pickle.load(f)
 
 coco_classes_dict = {'person': 0, 'bicycle': 1, 'car': 2, 'motorcycle': 3, 'airplane': 4, 'bus': 5, 'train': 6, 'truck': 7, 'boat': 8, 'traffic_light': 9, 'fire_hydrant': 10, 'stop_sign': 11, 'parking_meter': 12, 'bench': 13, 'bird': 14, 'cat': 15, 'dog': 16, 'horse': 17, 'sheep': 18, 'cow': 19, 'elephant': 20, 'bear': 21, 'zebra': 22, 'giraffe': 23, 'backpack': 24, 'umbrella': 25, 'handbag': 26, 'tie': 27, 'suitcase': 28, 'frisbee': 29, 'skis': 30, 'snowboard': 31, 'sports_ball': 32, 'kite': 33, 'baseball_bat': 34, 'baseball_glove': 35, 'skateboard': 36, 'surfboard': 37, 'tennis_racket': 38, 'bottle': 39, 'wine_glass': 40, 'cup': 41, 'fork': 42, 'knife': 43, 'spoon': 44, 'bowl': 45, 'banana': 46, 'apple': 47, 'sandwich': 48, 'orange': 49, 'broccoli': 50, 'carrot': 51, 'hot_dog': 52, 'pizza': 53, 'donut': 54, 'cake': 55, 'chair': 56, 'couch': 57, 'potted_plant': 58, 'bed': 59, 'dining_table': 60, 'toilet': 61, 'tv': 62, 'laptop': 63, 'mouse': 64, 'remote': 65, 'keyboard': 66, 'cell_phone': 67, 'microwave': 68, 'oven': 69, 'toaster': 70, 'sink': 71, 'refrigerator': 72, 'book': 73, 'clock': 74, 'vase': 75, 'scissors': 76, 'teddy_bear': 77, 'hair_dryer': 78, 'toothbrush': 79}
@@ -120,3 +122,11 @@ def get_plt(num):
                 ax.axis('off')
     plt.subplots_adjust(top=0.95)  
     return plt, fig, axs
+
+with open('scripts/analysizing/dict_variance.json', 'r') as f:
+    dict_variance = json.load(f)
+
+variance = np.zeros(20000)
+for key, value in dict_variance.items():
+    variance[int(key)] = value
+variance_index_sorted = np.argsort(variance)

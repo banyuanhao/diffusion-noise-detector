@@ -18,12 +18,12 @@ train_seeds = seeds_plus[:17500]
 val_seeds = seeds_plus[17500:18500]
 test_seeds = seeds_plus[18500:]
 
-# for seed in test_seeds:
+
+    # for seed in test_seeds:
 #     src = train_dir / str(seed)
 #     dst = test_dir
 #     # move the folder src to dst
 #     shutil.move(str(src), str(dst))
-    
 for seed in val_seeds:
     src = train_dir / str(seed)
     dst = val_dir
