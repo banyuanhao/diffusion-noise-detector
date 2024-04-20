@@ -1,6 +1,8 @@
 # file to generate images from prompts and seeds
-
-from diffusers import StableDiffusionPipeline, StableDiffusionXLPipeline, AutoPipelineForText2Image,  StableDiffusionXLImg2ImgPipeline
+import sys
+sys.path.append('~/odfn')
+from scripts.models.diffuserpipeline import StableDiffusionPipeline
+# from diffusers import StableDiffusionPipeline
 import torch
 import random
 import numpy as np

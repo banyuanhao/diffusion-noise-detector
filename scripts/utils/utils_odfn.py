@@ -123,7 +123,7 @@ def get_plt(num):
     plt.subplots_adjust(top=0.95)  
     return plt, fig, axs
 
-with open('scripts/analysizing/dict_variance.json', 'r') as f:
+with open('scripts/utils/dict_variance.json', 'r') as f:
     dict_variance = json.load(f)
 
 variance = np.zeros(20000)
