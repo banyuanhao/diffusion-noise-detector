@@ -28,9 +28,9 @@ for spilt in ['train', 'val', 'test']:
 
 
 ### 2. store the centorid of each annotations
-dict_annotations = {}
+dict_variance = {}
 for i in range(20000):
-    dict_annotations[i] = []
+    dict_variance[i] = []
 
 for spilt in ['train', 'val', 'test']:
     mode = '1_category_1_class_npy'
@@ -44,18 +44,20 @@ for spilt in ['train', 'val', 'test']:
     annotatinos = data['annotations']
 
     for ann in annotatinos:
-        dict_annotations[ann['image_id']].append(ann['bbox'])
+        dict_variance[ann['image_id']].append(ann['bbox'])
 
-for key, value in dict_annotations.items():
+for key, value in dict_variance.items():
     if len(value) == 0:
         print(key)
-        dict_annotations[key] = 0
+        dict_variance[key] = 0
         continue
     value = np.array(value)
     value = np.var(value, axis=0)
     value = np.mean(value)
-    dict_annotations[key] = value
+    dict_variance[key] = value
 
+# with open('dict_variance.json', 'w') as f:
+#     json.dump(dict_variance, f)
 ### 3. plot the histogram
-plt.hist(list(dict_annotations.values()), bins=100)
+plt.hist(list(dict_variance.values()), bins=100)
 plt.savefig('variance.png')
