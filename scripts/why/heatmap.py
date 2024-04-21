@@ -14,7 +14,7 @@ data = json.load(open(path, 'r'))
 images = data['images']
 annotations = data['annotations']
 
-image = images[9000]
+image = images[15070]
 image_path = image['file_name']
 image_id = image['id']
 
@@ -38,11 +38,18 @@ img = np.load(base_path+image_path)
 from scipy.stats import shapiro
 from scipy.stats import anderson
 
-place_holder = np.zeros((64,64),dtype=np.float32)   
-for i in range(0,64,8):
-    for j in range(0,64,8):
-        print(i,j)
-        place_holder[i:i+8,j:j+8] = shapiro(img[i:i+8,j:j+8].flatten()).pvalue
+place_holder = np.zeros((64,64),dtype=np.float32)
+for i in range(0,64):
+    for j in range(0,64):
+        if i < 4:
+            i = 4
+        if j < 4:
+            j = 4
+        if i > 59:
+            i = 59
+        if j > 59:
+            j = 59
+        place_holder[i,j] = shapiro(img[i-4:i+4,j-4:j+4].flatten()).pvalue
 
 place_holder = place_holder / np.max(place_holder)
 plt.imshow(place_holder)
