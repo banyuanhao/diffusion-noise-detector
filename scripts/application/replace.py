@@ -44,11 +44,38 @@ def self_replace(latent, bounding_box_latent_source, bounding_box_latent_target)
     latent[:, :, y_s:y_s+height_s, x_s:x_s+width_s] = tmp
     return latent
 
+def self_paste(latent, bounding_box_latent_source, bounding_box_latent_target):
+    """_summary_
+
+    Args:
+        latent (_type_): latent
+        bounding_box_latent_source (_type_): paste source red
+        bounding_box_latent_target (_type_): paste target blue
+
+    Returns:
+        _type_: _description_
+    """
+    x_s, y_s, width_s, height_s = bounding_box_latent_source
+    x_t, y_t, width_t, height_t = bounding_box_latent_target
+    tmp = latent[:, :, y_s:y_s+height_s, x_s:x_s+width_s].clone()
+    latent[:, :, y_t:y_t+height_t, x_t:x_t+width_t] = tmp
+    return latent
+
 # print(variance_index_sorted[0])
 # print(min(variance_index_sorted))
-print(seeds_plus[variance_index_sorted[0]])
-seed = seeds_plus[variance_index_sorted[0]]
+# print(seeds_plus[variance_index_sorted[0]])
+# seed = seeds_plus[variance_index_sorted[0]]
+# prompt = "A sports ball is caught in a fence."
+# bounding_box_latent_source = [40,20,24,30]
+# bounding_box_latent_target = [0,0,24,30]
+
+# bounding_box_latent_source = [40,0,24,30]
+# bounding_box_latent_target = [0,34,24,30]
+# seed = seeds_plus[variance_index_sorted[1]]
+seed = seeds_plus[variance_index_sorted[19040]]
 prompt = "A sports ball is caught in a fence."
+bounding_box_latent_source = [20,40,20,20]
+bounding_box_latent_target = [0,0,20,20]
 
 model_id = 'stabilityai/stable-diffusion-2-base'
 device = 'cuda'
@@ -56,9 +83,6 @@ pipe = StableDiffusionPipeline.from_pretrained(model_id, use_auth_token=True).to
 
 latents = pipe.get_latents(prompt='nothing', generator=set_seed(seed))
 latents = torch.randn((1,4,64,64), generator=set_seed(seed), device='cuda', dtype=latents.dtype)
-
-bounding_box_latent_source = [40,20,24,30]
-bounding_box_latent_target = [0,0,24,30]
 
 with torch.no_grad():
     fig, axs = plt.subplots(2, 2, figsize=(5*2, 5*2))
