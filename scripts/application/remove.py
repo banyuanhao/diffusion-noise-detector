@@ -36,12 +36,13 @@ def regenerate(latent, bounding_box, regenerate_seed):
     latent[:, :, y:y+height, x:x+width] = latents_box
     return latent
 
-# seed = 537
-# prompt = 'Paris Street on a rainy day'
-# ### xy, width, height
-# bounding_box_latent = [20,44,30,20]
-# # 2723
-# # image = image.cpu().permute(0, 2, 3, 1).float().numpy()
+seed = 537
+regenerate_seed = 125
+prompt = 'Paris Street on a rainy day'
+### xy, width, height
+bounding_box_latent = [20,44,30,20]
+# 2723
+# image = image.cpu().permute(0, 2, 3, 1).float().numpy()
 
 # seed = 16464
 # regenerate_seed = 125
@@ -58,10 +59,10 @@ def regenerate(latent, bounding_box, regenerate_seed):
 # prompt = 'Office wall above a wooden desk'
 # bounding_box_latent = [15,43,20,17]
 
-seed = 1646
-regenerate_seed = 1123
-prompt = 'Office wall above a wooden desk'
-bounding_box_latent = [15,43,20,17]
+# seed = 1646
+# regenerate_seed = 1123
+# prompt = 'Office wall above a wooden desk'
+# bounding_box_latent = [15,43,20,17]
 
 model_id = 'stabilityai/stable-diffusion-2-base'
 device = 'cuda'

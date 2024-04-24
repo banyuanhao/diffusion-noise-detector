@@ -38,6 +38,8 @@ img = np.load(base_path+image_path)
 from scipy.stats import shapiro
 from scipy.stats import anderson
 
+# do normal test on latents_source and latents_target
+
 place_holder = np.zeros((64,64),dtype=np.float32)
 for i in range(0,64):
     for j in range(0,64):

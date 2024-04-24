@@ -62,20 +62,25 @@ def self_paste(latent, bounding_box_latent_source, bounding_box_latent_target):
     return latent
 
 # print(variance_index_sorted[0])
-# print(min(variance_index_sorted))
 # print(seeds_plus[variance_index_sorted[0]])
-# seed = seeds_plus[variance_index_sorted[0]]
-# prompt = "A sports ball is caught in a fence."
-# bounding_box_latent_source = [40,20,24,30]
-# bounding_box_latent_target = [0,0,24,30]
+seed = seeds_plus[variance_index_sorted[0]]
+prompt = "A sports ball is caught in a fence."
+bounding_box_latent_source = [40,20,24,30]
+bounding_box_latent_target = [0,20,24,30]
 
 # bounding_box_latent_source = [40,0,24,30]
 # bounding_box_latent_target = [0,34,24,30]
 # seed = seeds_plus[variance_index_sorted[1]]
-seed = seeds_plus[variance_index_sorted[19040]]
-prompt = "A sports ball is caught in a fence."
-bounding_box_latent_source = [20,40,20,20]
-bounding_box_latent_target = [0,0,20,20]
+# seed = seeds_plus[variance_index_sorted[0]]
+# prompt = "The baseball glove waits by the fence."
+# bounding_box_latent_source = [30,15,34,40]
+# bounding_box_latent_target = [00,20,34,40]
+
+# seed = seeds_plus[variance_index_sorted[0]]
+# prompt = "A red stop sign halts traffic at an intersection."
+# bounding_box_latent_source = [30,15,34,40]
+# bounding_box_latent_target = [00,20,34,40]
+
 
 model_id = 'stabilityai/stable-diffusion-2-base'
 device = 'cuda'
