@@ -52,8 +52,8 @@ for i in range(0,100):
     seed_source = seeds_plus[variance_index_sorted[i]]
     seed_target = seeds_plus[variance_index_sorted[i]]
 
-    prompt_source = "a sports ball on the right"
-    prompt_target = "A sports ball"
+    prompt_source = "A woman carries a stylish handbag on her left shoulder, with the handbag on the left"
+    prompt_target = "A woman carries a stylish handbag on her shoulder."
 
 
     model_id = 'stabilityai/stable-diffusion-2-base'
@@ -85,4 +85,4 @@ for i in range(0,100):
         latents_target_final = (latents_target_final - latents_target_final.min()) / (latents_target_final.max() - latents_target_final.min())
         axs[1][1].imshow(latents_target_final)
         
-        fig.savefig(f'pics/compete/0/output_{i}.png')
+        fig.savefig(f'pics/compete/one_prompt/handbag/output_new_prompt_{i}.png')

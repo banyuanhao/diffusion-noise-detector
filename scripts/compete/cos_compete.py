@@ -70,7 +70,7 @@ for i in range(0, 100):
     prompt_target = "A sports ball is caught in a fence."
 
     bounding_box_latent_source = [40,20,24,30]
-    bounding_box_latent_target = [20,0,24,30]
+    bounding_box_latent_target = [20,0,24,24]
 
 
 

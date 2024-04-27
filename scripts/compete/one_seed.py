@@ -49,11 +49,11 @@ def replace(latent_source, latent_target, bounding_box_latent_source, bounding_b
 
 
 for i, coco_class in enumerate(coco_classes):
-    seed_source = seeds_plus[variance_index_sorted[0]]
-    seed_target = seeds_plus[variance_index_sorted[0]]
+    seed_source = seeds_plus[variance_index_sorted[19910]]
+    seed_target = seeds_plus[variance_index_sorted[19910]]
 
-    prompt_source = f"{coco_class} on the left"
-    prompt_target = f"{coco_class}"
+    prompt_source = f"a {coco_class} on the left"
+    prompt_target = f"a {coco_class}"
 
 
     model_id = 'stabilityai/stable-diffusion-2-base'
@@ -85,4 +85,4 @@ for i, coco_class in enumerate(coco_classes):
         latents_target_final = (latents_target_final - latents_target_final.min()) / (latents_target_final.max() - latents_target_final.min())
         axs[1][1].imshow(latents_target_final)
         
-        fig.savefig(f'pics/compete/one_seed/0/output_{i}.png')
+        fig.savefig(f'pics/compete/one_seed/19910/output_{i}.png')

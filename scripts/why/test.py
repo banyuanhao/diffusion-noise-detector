@@ -28,8 +28,8 @@ def permutation_test(x, y, num_permutations=1000):
 
 # 示例数据
 np.random.seed(10)
-x = np.random.normal(0, 1, (100, 3))
-y = np.random.normal(0, 1, (100, 3))
+x = np.random.normal(0.01, 1, (10000, 3))
+y = np.random.normal(0, 1, (10000, 3))
 
 # 计算能量距离和p值
 distance, p_value = permutation_test(x, y, 1000)

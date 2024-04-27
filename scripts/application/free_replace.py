@@ -61,13 +61,20 @@ for i in range(19900, 20000):
     seed_source = seeds_plus[variance_index_sorted[0]]
     seed_target = seeds_plus[variance_index_sorted[i]]
 
-    prompt_source = "A sports ball is caught in a fence."
-    prompt_target = "A sports ball is caught in a fence."
+    # prompt_source = "A sports ball is caught in a fence."
+    # prompt_target = "A sports ball is caught in a fence."
 
-    bounding_box_latent_source = [40,20,24,30]
-    bounding_box_latent_target = [20,0,24,30]
+    # bounding_box_latent_source = [40,20,24,30]
+    # bounding_box_latent_target = [20,0,24,30]
 
+    seed_source = seeds_plus[variance_index_sorted[0]]
+    seed_target = seeds_plus[variance_index_sorted[i]]
 
+    prompt_source = "The baseball glove waits by the fence."
+    prompt_target = "The baseball glove waits by the fence."
+
+    bounding_box_latent_source = [30,20,34,30]
+    bounding_box_latent_target = [10,34,34,30]
 
     model_id = 'stabilityai/stable-diffusion-2-base'
     device = 'cuda'
@@ -131,4 +138,4 @@ for i in range(19900, 20000):
         axs[2][1].add_patch(plt.Rectangle((bounding_box_latent_target[0], bounding_box_latent_target[1]), bounding_box_latent_target[2], bounding_box_latent_target[3], fill=None, edgecolor='blue', lw=2))
         axs[2][1].imshow(latents_target_final)
             
-        fig.savefig(f'pics/replace/replace_{i}.png')
+        fig.savefig(f'pics/replace/glove/replace_{i}.png')

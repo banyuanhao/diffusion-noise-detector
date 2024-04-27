@@ -105,4 +105,4 @@ for i in range(0,20000,2000):
     distance, p_value = permutation_test(neg_sample, pos_sample, 1000)
     print(f"Energy Distance: {distance}")
     print(f"P-value: {p_value}")
-
+    
