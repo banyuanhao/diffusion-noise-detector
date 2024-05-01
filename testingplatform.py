@@ -19,4 +19,3 @@ for spilt in spilts:
         
         
 # /nfs/data/yuanhaoban/ODFN/version_2/test/annotations/test_for_1_category_5_class.json\
-    

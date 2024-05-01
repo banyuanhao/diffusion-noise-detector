@@ -30,7 +30,7 @@ def set_seed(seed: int) -> torch.Generator:
 
     return gen
 
-def replace(latent_source, latent_target, bounding_box_latent_source, bounding_box_latent_target):
+def replace(latent_source, latent_target, bounding_box_latent_source, bounding_box_latent_target, theta = None):
     """_summary_
 
     Args:
@@ -44,7 +44,10 @@ def replace(latent_source, latent_target, bounding_box_latent_source, bounding_b
     """
     x_s, y_s, width_s, height_s = bounding_box_latent_source
     x_t, y_t, width_t, height_t = bounding_box_latent_target
-    latent_target[:, :, y_t:y_t+height_t, x_t:x_t+width_t] = latent_source[:, :, y_s:y_s+height_s, x_s:x_s+width_s]
+    if theta == None:
+        latent_target[:, :, y_t:y_t+height_t, x_t:x_t+width_t] = latent_source[:, :, y_s:y_s+height_s, x_s:x_s+width_s]
+    else:
+        latent_target[:, :, y_t:y_t+height_t, x_t:x_t+width_t] = latent_source[:, :, y_s:y_s+height_s, x_s:x_s+width_s] * np.sin(theta) + latent_target[:, :, y_t:y_t+height_t, x_t:x_t+width_t] * np.cos(theta)
     return latent_target
 
 
@@ -57,24 +60,19 @@ def replace(latent_source, latent_target, bounding_box_latent_source, bounding_b
 # bounding_box_latent_source = [40,20,24,30]
 # bounding_box_latent_target = [20,10,24,30]
 
-for i in range(19900, 20000):
+for i in range(0, 100):
+    theta = 2 * np.pi * i / 100 / 4
+    
     seed_source = seeds_plus[variance_index_sorted[0]]
-    seed_target = seeds_plus[variance_index_sorted[i]]
+    seed_target = seeds_plus[variance_index_sorted[19962]]
 
-    # prompt_source = "A sports ball is caught in a fence."
-    # prompt_target = "A sports ball is caught in a fence."
+    prompt_source = "A sports ball is caught in a fence."
+    prompt_target = "A sports ball is caught in a fence."
 
-    # bounding_box_latent_source = [40,20,24,30]
-    # bounding_box_latent_target = [20,0,24,30]
+    bounding_box_latent_source = [40,20,24,30]
+    bounding_box_latent_target = [20,0,24,24]
 
-    seed_source = seeds_plus[variance_index_sorted[0]]
-    seed_target = seeds_plus[variance_index_sorted[i]]
 
-    prompt_source = "The baseball glove waits by the fence."
-    prompt_target = "The baseball glove waits by the fence."
-
-    bounding_box_latent_source = [30,20,34,30]
-    bounding_box_latent_target = [10,34,34,30]
 
     model_id = 'stabilityai/stable-diffusion-2-base'
     device = 'cuda'
@@ -124,7 +122,7 @@ for i in range(19900, 20000):
         axs[1][1].imshow(latents_target_final)
         
         
-        latents_target = replace(latents_source, latents_target, bounding_box_latent_source, bounding_box_latent_target)
+        latents_target = replace(latents_source, latents_target, bounding_box_latent_source, bounding_box_latent_target, theta = theta)
         
         out_target, latents_target_final = pipe(prompt=prompt_target, generator=set_seed(seed_target), latents = latents_target, output_type = "latent and pil")
         axs[2][0].imshow(out_target.images[0])
@@ -138,4 +136,4 @@ for i in range(19900, 20000):
         axs[2][1].add_patch(plt.Rectangle((bounding_box_latent_target[0], bounding_box_latent_target[1]), bounding_box_latent_target[2], bounding_box_latent_target[3], fill=None, edgecolor='blue', lw=2))
         axs[2][1].imshow(latents_target_final)
             
-        fig.savefig(f'pics/replace/glove/replace_{i}.png')
+        fig.savefig(f'pics/compete/cos/0_19962/replace_{i}.png')
