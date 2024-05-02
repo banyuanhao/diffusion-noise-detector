@@ -96,7 +96,7 @@ def replace_patch(latent, bbox, patch, theta = None):
 # bounding_box_latent_source = [40,20,24,30]
 # bounding_box_latent_target = [20,10,24,30]
 
-for i in range(19900,20000):
+for i in range(19999,20000):
     seed_source = seeds_plus[variance_index_sorted[0]]
     seed_target = seeds_plus[variance_index_sorted[i]]
 
@@ -152,7 +152,7 @@ for i in range(19900,20000):
         axs[1][1].imshow(latents_target_final)
         
         
-        theta = 10
+        theta = 50
         x_t, y_t, width_t, height_t = bounding_box_latent_target
         patch = generate_patch_sin((4,height_t, width_t))
         # patch = generate_patch_singau((4,height_t, width_t), seed = set_seed(seed_target), lamuda = 0.85, std = 1)
@@ -172,4 +172,4 @@ for i in range(19900,20000):
         axs[2][1].add_patch(plt.Rectangle((bounding_box_latent_target[0], bounding_box_latent_target[1]), bounding_box_latent_target[2], bounding_box_latent_target[3], fill=None, edgecolor='blue', lw=2))
         axs[2][1].imshow(latents_target_final)
             
-        fig.savefig(f'pics/replace_any/ball/replace_{i}.png')
+        fig.savefig(f'pics/replace_any/replace.png')

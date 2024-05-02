@@ -74,6 +74,16 @@ def seeds_plus_spilt(spilt):
         raise ValueError('category error')
     return seeds_sub
 
+def return_seeds_plus_spilt(seed):
+    if seed in seeds_plus[:17500]:
+        return 'train'
+    elif seed in seeds_plus[17500:18500]:
+        return 'val'
+    elif seed in seeds_plus[18500:20000]:
+        return 'test'
+    else:
+        raise ValueError('category error')
+
 def extract_ground_seeds(image_id):
     class_id = image_id //100000
     seed_id = image_id // 100 % 1000
