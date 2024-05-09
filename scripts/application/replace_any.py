@@ -11,26 +11,7 @@ from pathlib import Path
 import os
 from tqdm import tqdm
 from matplotlib import pyplot as plt
-from scripts.utils.utils_odfn import variance_index_sorted, seeds_plus, seeds_plus_dict
-
-
-
-def auto_device(obj: T = torch.device('cpu')) -> T:
-    if isinstance(obj, torch.device):
-        return torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-
-    if torch.cuda.is_available():
-        return obj.to('cuda')
-
-def set_seed(seed: int) -> torch.Generator:
-    random.seed(seed)
-    np.random.seed(seed)
-    torch.manual_seed(seed)
-    torch.cuda.manual_seed_all(seed)
-    gen = torch.Generator(device=auto_device())
-    gen.manual_seed(seed)
-
-    return gen
+from scripts.utils.utils_odfn import variance_index_sorted, seeds_plus, seeds_plus_dict,auto_device,set_seed
 
 def replace(latent_source, latent_target, bounding_box_latent_source, bounding_box_latent_target):
     """_summary_

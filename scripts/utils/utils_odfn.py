@@ -140,3 +140,15 @@ variance = np.zeros(20000)
 for key, value in dict_variance.items():
     variance[int(key)] = value
 variance_index_sorted = np.argsort(variance)
+
+with open('scripts/utils/dict_variance_5_class.json', 'r') as f:
+    dict_variance_5_class = json.load(f)
+
+variance_5_class = np.zeros(20000)
+for key, value in dict_variance_5_class.items():
+    variance_5_class[int(key)] = value
+variance_5_class_index_sorted = np.argsort(variance_5_class)
+
+
+with open('scripts/utils/detector_results.json', 'r') as f:
+    detector_results = json.load(f)

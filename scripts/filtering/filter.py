@@ -31,7 +31,7 @@ dict_variance = {}
 for i in range(20000):
     dict_variance[i] = []
 
-for spilt in ['train', 'val']:
+for spilt in ['train', 'val','test']:
     mode = '1_category_5_class_npy'
     name = spilt + '_for_' + mode + '.json'
 
@@ -55,12 +55,12 @@ for key, value in dict_variance.items():
     value = np.mean(value)
     dict_variance[key] = value
 
-# with open('dict_variance.json', 'w') as f:
-#     json.dump(dict_variance, f)
+with open('dict_variance_5_class.json', 'w') as f:
+    json.dump(dict_variance, f)
 ### 3. plot the histogram
 print(len(list(dict_variance.values())))
 sort = sorted(list(dict_variance.values()))
 print(sort[10000])
 
 plt.hist(list(dict_variance.values()), bins=100)
-plt.savefig('variance_1.png')
+plt.savefig('pics/variance_5.png')
