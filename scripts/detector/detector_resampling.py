@@ -81,13 +81,15 @@ def accept_sample_var(therhold = 10):
         variances = np.mean(variances)
     return seed
 
-def reject_sample_con(therhold = 0.6):
+def reject_sample_con(therhold = 0.6,seed=None):
     scores = 1
-    while True:
+    if seed is None:
         seed = torch.randint(0,1000000,(1,)).item()
-        array = torch.randn((1,4,64,64), generator=set_seed(seed), device='cuda', dtype=torch.float32)
-        
-        array = array[0].cpu().numpy().transpose(1,2,0)
+    array = torch.randn((1,4,64,64), generator=set_seed(seed), device='cuda', dtype=torch.float32)
+    array = array[0].cpu().numpy().transpose(1,2,0)
+    count = 0
+    while True:
+        count += 1
         results = inferencer(array)
         results = results['predictions'][0]
         scores = results['scores'][0]
@@ -95,13 +97,16 @@ def reject_sample_con(therhold = 0.6):
         if scores < therhold:
             break
         else:
-            # patch = torch.randn((4, int(bbox[3])-int(bbox[1]), int(bbox[2])-int(bbox[0])), device='cuda', dtype=torch.float32)
-            # patch = patch.cpu().numpy().transpose(1,2,0)
-            # array[int(bbox[1]):int(bbox[3]),int(bbox[0]):int(bbox[2]),:] = patch
-            
-            patch = torch.randn((4, int(bbox[2])-int(bbox[0]), int(bbox[3])-int(bbox[1])), device='cuda', dtype=torch.float32)
+            # exp2 right
+            patch = torch.randn((4, int(bbox[3])-int(bbox[1]), int(bbox[2])-int(bbox[0])), device='cuda', dtype=torch.float32)
             patch = patch.cpu().numpy().transpose(1,2,0)
-            array[int(bbox[0]):int(bbox[2]),int(bbox[1]):int(bbox[3]),:] = patch
+            array[int(bbox[1]):int(bbox[3]),int(bbox[0]):int(bbox[2]),:] = patch
+            
+            # exp1 wrong
+            # patch = torch.randn((4, int(bbox[2])-int(bbox[0]), int(bbox[3])-int(bbox[1])), device='cuda', dtype=torch.float32)
+            # patch = patch.cpu().numpy().transpose(1,2,0)
+            # array[int(bbox[0]):int(bbox[2]),int(bbox[1]):int(bbox[3]),:] = patch
     
     array = torch.tensor(array.transpose(2,0,1), device='cuda', dtype=torch.float32).unsqueeze(0)
+    # print(count)
     return array

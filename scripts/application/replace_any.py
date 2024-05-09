@@ -47,8 +47,10 @@ def generate_patch_sin_(size):
     return result.unsqueeze(0).cuda()
 
 def generate_patch_gaussian(size, mean = 0, std = 1, seed = None):
+    if seed is None:
+        seed = torch.randint(0,1000000,(1,)).item()
     s_x, s_y, s_z = size
-    result = torch.randn((1, s_x, s_y, s_z), generator=seed, device='cuda') * std + mean
+    result = torch.randn((1, s_x, s_y, s_z), generator=set_seed(seed), device='cuda') * std + mean
     return result.unsqueeze(0).cuda()
 
 def generate_patch_singau(size, std = 1, seed = None, lamuda = 1):
@@ -61,6 +63,7 @@ def generate_patch_singau(size, std = 1, seed = None, lamuda = 1):
     result = result.unsqueeze(0).cuda()
     result = lamuda * torch.randn((1, s_x, s_y, s_z), generator=seed, device='cuda') * std + (1-lamuda) * result
     return result
+
 
 def replace_patch(latent, bbox, patch, theta = None):
     theta = theta / 100 * np.pi / 2
@@ -88,7 +91,7 @@ for i in range(19999,20000):
     prompt_target = "A sports ball is caught in a fence." 
 
     bounding_box_latent_source = [0,20,24,30]
-    bounding_box_latent_target = [30,30,24,24]
+    bounding_box_latent_target = [10,40,24,24]
 
 
 
@@ -133,9 +136,10 @@ for i in range(19999,20000):
         axs[1][1].imshow(latents_target_final)
         
         
-        theta = 50
+        theta = 100
         x_t, y_t, width_t, height_t = bounding_box_latent_target
-        patch = generate_patch_sin((4,height_t, width_t))
+        
+        patch = generate_patch_gaussian((4,height_t, width_t), std = 1.0, mean = 0.10)
         # patch = generate_patch_singau((4,height_t, width_t), seed = set_seed(seed_target), lamuda = 0.85, std = 1)
         
         latents_target = replace_patch(latents_target, bounding_box_latent_target, patch, theta)
