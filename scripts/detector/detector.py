@@ -24,6 +24,7 @@ inferencer = DetInferencer(model='/nfs/data/yuanhaoban/ODFN/model/data_augmentat
 
 
 
+
 # results_dict = []
 # for j in tqdm(range(20000)):
 #     image_id = j

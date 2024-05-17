@@ -87,9 +87,9 @@ def reject_sample_con(therhold = 0.6,seed=None):
         seed = torch.randint(0,1000000,(1,)).item()
     array = torch.randn((1,4,64,64), generator=set_seed(seed), device='cuda', dtype=torch.float32)
     array = array[0].cpu().numpy().transpose(1,2,0)
-    count = 0
     while True:
-        count += 1
+        # global count
+        # count += 1
         results = inferencer(array)
         results = results['predictions'][0]
         scores = results['scores'][0]
@@ -102,7 +102,7 @@ def reject_sample_con(therhold = 0.6,seed=None):
             patch = patch.cpu().numpy().transpose(1,2,0)
             array[int(bbox[1]):int(bbox[3]),int(bbox[0]):int(bbox[2]),:] = patch
             
-            # exp1 wrong
+            # exp1 wrong 3180
             # patch = torch.randn((4, int(bbox[2])-int(bbox[0]), int(bbox[3])-int(bbox[1])), device='cuda', dtype=torch.float32)
             # patch = patch.cpu().numpy().transpose(1,2,0)
             # array[int(bbox[0]):int(bbox[2]),int(bbox[1]):int(bbox[3]),:] = patch
@@ -110,3 +110,37 @@ def reject_sample_con(therhold = 0.6,seed=None):
     array = torch.tensor(array.transpose(2,0,1), device='cuda', dtype=torch.float32).unsqueeze(0)
     # print(count)
     return array
+
+# count = 0
+# for i in range(100):
+#     reject_sample_con(therhold=0.6)
+# print(count)
+
+
+def reject_sample_pos(therhold = 0.8, position='left'):
+    if position not in ['left','right']:
+        raise ValueError('position must be left or right')
+    while True:
+        seed = torch.randint(0,1000000,(1,)).item()
+        array = torch.randn((1,4,64,64), generator=set_seed(seed), device='cuda', dtype=torch.float32)
+        array = array[0].cpu().numpy().transpose(1,2,0)
+        
+        results = inferencer(array)
+        results = results['predictions'][0]
+        
+        scores = results['scores'][0]
+        bbox = results['bboxes'][0]
+        ## exp1
+        # if bbox[1]/2 + bbox[3]/2 < 32 and position == 'left' and scores > therhold:
+        #     array = torch.tensor(array.transpose(2,0,1), device='cuda', dtype=torch.float32).unsqueeze(0)
+        #     return array
+        # elif bbox[1]/2 + bbox[3]/2 > 32 and position == 'right' and scores > therhold:
+        #     array = torch.tensor(array.transpose(2,0,1), device='cuda', dtype=torch.float32).unsqueeze(0)
+        #     return array
+        # exp2
+        if bbox[0]/2 + bbox[2]/2 < 28 and position == 'left' and scores > therhold:
+            array = torch.tensor(array.transpose(2,0,1), device='cuda', dtype=torch.float32).unsqueeze(0)
+            return array
+        elif bbox[0]/2 + bbox[2]/2 > 36 and position == 'right' and scores > therhold:
+            array = torch.tensor(array.transpose(2,0,1), device='cuda', dtype=torch.float32).unsqueeze(0)
+            return array

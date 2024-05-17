@@ -4,11 +4,11 @@ from mmdet.apis import DetInferencer
 import os
 import numpy as np
 
-base_path = '/nfs/data/yuanhaoban/ODFN/diversity/'
-exp = 'exp1'
-group = 'rejection'
-labels = 47
-class_name = 'apple'
+base_path = '/nfs/data/yuanhaoban/ODFN/following/'
+exp = 'exp2'
+group = 'control'
+labels = 32
+class_name = 'sports_ball'
 
 
 import json
