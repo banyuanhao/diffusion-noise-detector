@@ -48,8 +48,8 @@ def replace(latent_source, latent_target, bounding_box_latent_source, bounding_b
     return latent_target
 
 
-# seed_source = seeds_plus[variance_5_class_index_sorted[0]]
-# seed_target = seeds_plus[variance_5_class_index_sorted[19040]]
+# seed_source = seeds_plus[variance_index_sorted[0]]
+# seed_target = seeds_plus[variance_index_sorted[19040]]
 
 # prompt_source = "A sports ball is caught in a fence."
 # prompt_target = "A sports ball is caught in a fence."
@@ -59,8 +59,8 @@ def replace(latent_source, latent_target, bounding_box_latent_source, bounding_b
 
 # for i in range(19900, 20000):
 i = 19999
-seed_source = seeds_plus[variance_5_class_index_sorted[0]]
-seed_target = seeds_plus[variance_5_class_index_sorted[i]]
+seed_source = seeds_plus[variance_index_sorted[0]]
+seed_target = seeds_plus[variance_index_sorted[i]]
 
 prompt_source = "A sports ball is caught in a fence."
 prompt_target = "A sports ball is caught in a fence."
@@ -68,14 +68,14 @@ prompt_target = "A sports ball is caught in a fence."
 # bounding_box_latent_source = [40,20,24,30]
 # bounding_box_latent_target = [20,0,24,30]
 
-seed_source = seeds_plus[variance_5_class_index_sorted[0]]
-seed_target = seeds_plus[variance_5_class_index_sorted[i]]
+seed_source = seeds_plus[variance_index_sorted[0]]
+seed_target = seeds_plus[variance_index_sorted[i]]
 
 # prompt_source = "The baseball glove waits by the fence."
 # prompt_target = "The baseball glove waits by the fence."
 
-bounding_box_latent_source = [22,22,24,24]
-bounding_box_latent_target = [10,34,24,24]
+bounding_box_latent_source = [40,7,24,24]
+bounding_box_latent_target = [40,10,24,24]
 
 model_id = 'stabilityai/stable-diffusion-2-base'
 device = 'cuda'

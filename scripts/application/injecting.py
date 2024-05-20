@@ -86,10 +86,15 @@ def get_patch_natural(num=0):
         latents = torch.randn((1,4,64,64), generator=set_seed(seed), device='cuda', dtype=torch.float32)
         bounding_box = [22,22,24,24]
         patch = latents[:, :,bounding_box[1]:bounding_box[1]+bounding_box[3],bounding_box[0]:bounding_box[0]+bounding_box[2]].clone()
-    elif num == 19999:
-        seed_target = seeds_plus[variance_5_class_index_sorted[i]]
+    elif num == 19990:
+        seed = seeds_plus[variance_5_class_index_sorted[i]]
         latents = torch.randn((1,4,64,64), generator=set_seed(seed), device='cuda', dtype=torch.float32)
-        bounding_box = [22,22,24,24]
+        bounding_box = [0,22,24,24]
+        patch = latents[:, :,bounding_box[1]:bounding_box[1]+bounding_box[3],bounding_box[0]:bounding_box[0]+bounding_box[2]].clone()
+    elif num == 19999:
+        seed = seeds_plus[variance_index_sorted[i]]
+        latents = torch.randn((1,4,64,64), generator=set_seed(seed), device='cuda', dtype=torch.float32)
+        bounding_box = [40,7,24,24]
         patch = latents[:, :,bounding_box[1]:bounding_box[1]+bounding_box[3],bounding_box[0]:bounding_box[0]+bounding_box[2]].clone()
     else:
         raise ValueError('num not recognized')
@@ -135,7 +140,7 @@ for i in range(200):
             patch = generate_patch_sin((4,height_t, width_t))
             latents[:, :, y_t:y_t+height_t, x_t:x_t+width_t] = patch * np.sin(theta) + np.cos(theta) * latents[:, :, y_t:y_t+height_t, x_t:x_t+width_t]
         elif mode == 'natural':
-            patch = get_patch_natural(19000)
+            patch = get_patch_natural(19990)
             latents[:, :, y_t:y_t+height_t, x_t:x_t+width_t] = patch
         else:
             raise ValueError('mode not recognized')
@@ -156,5 +161,5 @@ for i in range(200):
         print(iou)
         values.append(iou)
     import json
-    with open('pics/injection/weak.json','w') as f:
+    with open('pics/injection/weak_19990.json','w') as f:
         json.dump(values,f)
