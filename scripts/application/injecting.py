@@ -85,7 +85,7 @@ def get_patch_natural(num=0):
     
     
 mode = ['resample', 'shift gaussian', 'functional', 'natural']
-mode = mode[2]
+mode = mode[1]
 model_id = 'stabilityai/stable-diffusion-2-base'
 device = 'cuda'
 
@@ -100,7 +100,7 @@ x_t, y_t, width_t, height_t = bounding_box
 theta = 8
 theta = theta / 100 * np.pi / 2
 mean = 0
-std = 0.8
+std = 0.9
 
 values = []
 for i in range(200):
@@ -143,5 +143,5 @@ for i in range(200):
         print(iou)
         values.append(iou)
     import json
-    with open('pics/injection/output_functional_8.json','w') as f:
+    with open('pics/injection/output_shift_0.9.json','w') as f:
         json.dump(values,f)
