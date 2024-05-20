@@ -30,9 +30,12 @@ for spilt in ['train', 'val', 'test']:
         class_label = id // 10000000
         dict_label[ann['image_id']].append(class_label)
 
-num = 8
+# num = 8
 # num = 2000
-# num = 10000
+# num = 4000
+# num = 5008
+# num = 5093
+num = 5104
 value = dict_bbox[num]
 labels_true = dict_label[num]
 
@@ -78,10 +81,15 @@ labels = clusterer.fit_predict(value)
 plt.xlim(0, 64)
 plt.ylim(0, 64)
 plt.scatter(value[:, 0], value[:, 1], c=labels, cmap='viridis')
+plt.legend(title="Classes")
 plt.savefig('cluster_true.png')
 
+
 plt.clf()
+plt.figure(figsize=(10,10))
 plt.xlim(0, 64)
 plt.ylim(0, 64)
+plt.grid()
 plt.scatter(value[:, 0], value[:, 1], c=labels_true, cmap='viridis')
+plt.legend(title="Classes")
 plt.savefig('cluster_label.png')

@@ -7,6 +7,8 @@ import pickle
 import math
 import matplotlib.pyplot as plt
 import json
+import sys
+sys.path.append('/home/banyh2000/odfn')
 
 seeds_plus = np.load('scripts/utils/seeds.npy').tolist()
 
