@@ -99,9 +99,12 @@ bounding_box = [10,30,24,24]
 x_t, y_t, width_t, height_t = bounding_box
 theta = 10
 theta = theta / 100 * np.pi / 2
-threshold = 0.5
-count = 0
-for i in range(300):
+mean = 0
+std = 1.2
+
+values = []
+for i in range(200):
+    print(i)
     seed = i
 
     latents = torch.randn((1,4,64,64), generator=set_seed(seed), device='cuda', dtype=torch.float32)
@@ -113,7 +116,7 @@ for i in range(300):
             patch = generate_patch_gaussian((4,height_t, width_t), std = 1.0, mean = 0)
             latents[:, :, y_t:y_t+height_t, x_t:x_t+width_t] = patch
         elif mode == 'shift gaussian':
-            patch = generate_patch_gaussian((4,height_t, width_t), std = 1.1, mean = 0)
+            patch = generate_patch_gaussian((4,height_t, width_t), std = std, mean = 0)
             latents[:, :, y_t:y_t+height_t, x_t:x_t+width_t] = patch
         elif mode == 'functional':
             patch = generate_patch_sin((4,height_t, width_t))
@@ -138,9 +141,7 @@ for i in range(300):
         plt.savefig(f'pics/injection/output/{i}.png')
         iou = Con50(bounding_box_image,bounding_box_generated)
         print(iou)
-        if iou > threshold:
-            count += 1
-
-with open('pics/injection.txt', 'a') as f:
-    # save all the paremeters
-    f.write(f'exp_name: {exp_name}, mode: {mode}, prompt: {prompt}, bounding_box: {bounding_box}, theta: {theta}, count: {count}, threshold: {threshold}\n')
+        values.append(iou)
+    import json
+    with open('pics/injection/output_natural.json','w') as f:
+        json.dump(values,f)
