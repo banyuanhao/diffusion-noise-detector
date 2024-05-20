@@ -12,7 +12,7 @@ from pathlib import Path
 import os
 from tqdm import tqdm
 from matplotlib import pyplot as plt
-from scripts.utils.utils_odfn import variance_index_sorted, seeds_plus, seeds_plus_dict,auto_device,set_seed
+from scripts.utils.utils_odfn import variance_index_sorted, seeds_plus,set_seed
 
 def replace(latent_source, latent_target, bounding_box_latent_source, bounding_box_latent_target):
     """_summary_
@@ -91,15 +91,17 @@ device = 'cuda'
 
 pipe = StableDiffusionPipeline.from_pretrained(model_id, use_auth_token=True).to(device)
 inferencer = DetInferencer(model='rtmdet-ins_l_8xb32-300e_coco')
+
 # prompt = "A grizzly bear fishes in a rushing river."
 prompt = "A sports ball is caught in a fence."
+exp_name = 'exp1'
 bounding_box = [10,30,24,24]
 x_t, y_t, width_t, height_t = bounding_box
 theta = 10
 theta = theta / 100 * np.pi / 2
-
+threshold = 0.5
 count = 0
-for i in range(150):
+for i in range(300):
     seed = i
 
     latents = torch.randn((1,4,64,64), generator=set_seed(seed), device='cuda', dtype=torch.float32)
@@ -133,9 +135,12 @@ for i in range(150):
         ax.add_patch(rect)
         rect = plt.Rectangle((bounding_box_image[0],bounding_box_image[1]),bounding_box_image[2],bounding_box_image[3],linewidth=1,edgecolor='b',facecolor='none')
         ax.add_patch(rect)
-        # plt.savefig(f'pics/injection/output/{i}.png')
+        plt.savefig(f'pics/injection/output/{i}.png')
         iou = Con50(bounding_box_image,bounding_box_generated)
         print(iou)
-        if iou > 0.5:
+        if iou > threshold:
             count += 1
-            
+
+with open('pics/injection.txt', 'a') as f:
+    # save all the paremeters
+    f.write(f'exp_name: {exp_name}, mode: {mode}, prompt: {prompt}, bounding_box: {bounding_box}, theta: {theta}, count: {count}, threshold: {threshold}\n')
