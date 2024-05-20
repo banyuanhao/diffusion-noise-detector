@@ -7,3 +7,5 @@ model
 initno
 layout_guidance
 outputs
+scripts/models/__pycache__
+scripts/__pycache__
