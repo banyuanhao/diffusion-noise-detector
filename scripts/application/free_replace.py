@@ -62,8 +62,8 @@ i = 5000
 seed_source = seeds_plus[variance_index_sorted[0]]
 seed_target = seeds_plus[variance_index_sorted[i]]
 
-prompt_source = "A sports ball is caught in a fence."
-prompt_target = "A sports ball is caught in a fence."
+# prompt_source = "A sports ball is caught in a fence."
+# prompt_target = "A sports ball is caught in a fence."
 
 # bounding_box_latent_source = [40,20,24,30]
 # bounding_box_latent_target = [20,0,24,30]
@@ -71,10 +71,10 @@ prompt_target = "A sports ball is caught in a fence."
 seed_source = seeds_plus[variance_index_sorted[0]]
 seed_target = seeds_plus[variance_index_sorted[i]]
 
-# prompt_source = "The baseball glove waits by the fence."
-# prompt_target = "The baseball glove waits by the fence."
+prompt_source = "The baseball glove waits by the fence."
+prompt_target = "The baseball glove waits by the fence."
 
-bounding_box_latent_source = [40,7,24,24]
+bounding_box_latent_source = [36,18,24,24]
 bounding_box_latent_target = [40,10,24,24]
 
 model_id = 'stabilityai/stable-diffusion-2-base'

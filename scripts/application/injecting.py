@@ -14,6 +14,8 @@ from tqdm import tqdm
 from matplotlib import pyplot as plt
 from scripts.utils.utils_odfn import variance_index_sorted, seeds_plus,set_seed, variance_5_class_index_sorted
 
+import json
+
 def replace(latent_source, latent_target, bounding_box_latent_source, bounding_box_latent_target):
     """_summary_
 
@@ -75,35 +77,60 @@ def IoU50(bounding_box_1,bounding_box_2):
     union = bounding_box_1[2] * bounding_box_1[3] + bounding_box_2[2] * bounding_box_2[3] - intersection
     iou = intersection / union
     return iou
+
+
 def get_patch_natural(num=0):
-    if num == 0:
-        seed = seeds_plus[variance_index_sorted[num]]
-        latents = torch.randn((1,4,64,64), generator=set_seed(seed), device='cuda', dtype=torch.float32)
-        bounding_box = [40,20,24,24]
-        patch = latents[:, :,bounding_box[1]:bounding_box[1]+bounding_box[3],bounding_box[0]:bounding_box[0]+bounding_box[2]].clone()
-    elif num == 19000:
-        seed = seeds_plus[variance_index_sorted[num]]
-        latents = torch.randn((1,4,64,64), generator=set_seed(seed), device='cuda', dtype=torch.float32)
-        bounding_box = [22,22,24,24]
-        patch = latents[:, :,bounding_box[1]:bounding_box[1]+bounding_box[3],bounding_box[0]:bounding_box[0]+bounding_box[2]].clone()
-    elif num == 19990:
-        seed = seeds_plus[variance_5_class_index_sorted[i]]
-        latents = torch.randn((1,4,64,64), generator=set_seed(seed), device='cuda', dtype=torch.float32)
-        bounding_box = [0,22,24,24]
-        patch = latents[:, :,bounding_box[1]:bounding_box[1]+bounding_box[3],bounding_box[0]:bounding_box[0]+bounding_box[2]].clone()
-    elif num == 19999:
-        seed = seeds_plus[variance_index_sorted[i]]
-        latents = torch.randn((1,4,64,64), generator=set_seed(seed), device='cuda', dtype=torch.float32)
-        bounding_box = [40,7,24,24]
-        patch = latents[:, :,bounding_box[1]:bounding_box[1]+bounding_box[3],bounding_box[0]:bounding_box[0]+bounding_box[2]].clone()
-    else:
-        raise ValueError('num not recognized')
+    with open('/home/banyh2000/odfn/wrapup_data/hand/bounding boxes_1.json','r') as f:
+        values = json.load(f)
+    bounding_box = values[str(num)]
+    bounding_box[0] = (bounding_box[0] + bounding_box[2])//2 - 12
+    bounding_box[1] = (bounding_box[1] + bounding_box[3])//2 - 12
+    bounding_box = [int(value) for value in bounding_box]
+    bounding_box[2], bounding_box[3] = 24,24
+    bounding_box[0] = max(0,bounding_box[0])
+    bounding_box[1] = max(0,bounding_box[1])
+    if bounding_box[0] + bounding_box[2] > 64:
+        bounding_box[0] = 64 - bounding_box[2]
+    if bounding_box[1] + bounding_box[3] > 64:
+        bounding_box[1] = 64 - bounding_box[3]
+    print(bounding_box)
+    # resize bounding_box to a fixed width and height 24x24
+    seed = seeds_plus[variance_index_sorted[num]]
+    latents = torch.randn((1,4,64,64), generator=set_seed(seed), device='cuda', dtype=torch.float32)
+    patch = latents[:, :,bounding_box[1]:bounding_box[1]+bounding_box[3],bounding_box[0]:bounding_box[0]+bounding_box[2]].clone()
     return patch
+        
+    # seed = seeds_plus[variance_index_sorted[num]]
+    # latents = torch.randn((1,4,64,64), generator=set_seed(seed), device='cuda', dtype=torch.float32)
+    # if num == 0:
+    #     bounding_box = [40,20,24,24]
+    # elif num == 19000:
+    #     bounding_box = [22,22,24,24]
+    # elif num == 19990:
+    #     bounding_box = [0,22,24,24]
+    # elif num == 19999:
+    #     bounding_box = [40,7,24,24]
+    # elif num == 1000:
+    # elif num == 3000:
+    # elif num == 5000:
+    #     bounding_box = [36,18,24,24]
+    # elif num == 7000:
+    # elif num == 90000:
+    # elif num == 11000:
+    # elif num == 13000:
+    # elif num == 15000:
+    # elif num == 17000:
+    # elif num == 19000:
+    # else:
+    #     raise ValueError('num not recognized')
+    # patch = latents[:, :,bounding_box[1]:bounding_box[1]+bounding_box[3],bounding_box[0]:bounding_box[0]+bounding_box[2]].clone()
+    # return patch
     
     
     
 mode = ['resample', 'shift gaussian', 'functional', 'natural']
 mode = mode[3]
+num = 6000
 model_id = 'stabilityai/stable-diffusion-2-base'
 device = 'cuda'
 
@@ -140,7 +167,7 @@ for i in range(200):
             patch = generate_patch_sin((4,height_t, width_t))
             latents[:, :, y_t:y_t+height_t, x_t:x_t+width_t] = patch * np.sin(theta) + np.cos(theta) * latents[:, :, y_t:y_t+height_t, x_t:x_t+width_t]
         elif mode == 'natural':
-            patch = get_patch_natural(19999)
+            patch = get_patch_natural(num)
             latents[:, :, y_t:y_t+height_t, x_t:x_t+width_t] = patch
         else:
             raise ValueError('mode not recognized')
@@ -161,5 +188,5 @@ for i in range(200):
         print(iou)
         values.append(iou)
     import json
-    with open('pics/injection/weak_19999.json','w') as f:
+    with open(f'pics/injection/weak_auto_{num}.json','w') as f:
         json.dump(values,f)
