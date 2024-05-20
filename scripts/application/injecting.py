@@ -140,7 +140,7 @@ for i in range(200):
             patch = generate_patch_sin((4,height_t, width_t))
             latents[:, :, y_t:y_t+height_t, x_t:x_t+width_t] = patch * np.sin(theta) + np.cos(theta) * latents[:, :, y_t:y_t+height_t, x_t:x_t+width_t]
         elif mode == 'natural':
-            patch = get_patch_natural(19990)
+            patch = get_patch_natural(19999)
             latents[:, :, y_t:y_t+height_t, x_t:x_t+width_t] = patch
         else:
             raise ValueError('mode not recognized')
@@ -161,5 +161,5 @@ for i in range(200):
         print(iou)
         values.append(iou)
     import json
-    with open('pics/injection/weak_19990.json','w') as f:
+    with open('pics/injection/weak_19999.json','w') as f:
         json.dump(values,f)

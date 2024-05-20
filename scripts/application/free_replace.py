@@ -58,7 +58,7 @@ def replace(latent_source, latent_target, bounding_box_latent_source, bounding_b
 # bounding_box_latent_target = [20,10,24,30]
 
 # for i in range(19900, 20000):
-i = 19999
+i = 5000
 seed_source = seeds_plus[variance_index_sorted[0]]
 seed_target = seeds_plus[variance_index_sorted[i]]
 
