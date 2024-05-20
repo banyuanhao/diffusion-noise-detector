@@ -11,26 +11,7 @@ from pathlib import Path
 import os
 from tqdm import tqdm
 from matplotlib import pyplot as plt
-from scripts.utils.utils_odfn import variance_index_sorted, seeds_plus, seeds_plus_dict
-
-
-
-def auto_device(obj: T = torch.device('cpu')) -> T:
-    if isinstance(obj, torch.device):
-        return torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-
-    if torch.cuda.is_available():
-        return obj.to('cuda')
-
-def set_seed(seed: int) -> torch.Generator:
-    random.seed(seed)
-    np.random.seed(seed)
-    torch.manual_seed(seed)
-    torch.cuda.manual_seed_all(seed)
-    gen = torch.Generator(device=auto_device())
-    gen.manual_seed(seed)
-
-    return gen
+from scripts.utils.utils_odfn import variance_index_sorted, seeds_plus, seeds_plus_dict,auto_device,set_seed
 
 def replace(latent_source, latent_target, bounding_box_latent_source, bounding_box_latent_target):
     """_summary_
@@ -66,8 +47,10 @@ def generate_patch_sin_(size):
     return result.unsqueeze(0).cuda()
 
 def generate_patch_gaussian(size, mean = 0, std = 1, seed = None):
+    if seed is None:
+        seed = torch.randint(0,1000000,(1,)).item()
     s_x, s_y, s_z = size
-    result = torch.randn((1, s_x, s_y, s_z), generator=seed, device='cuda') * std + mean
+    result = torch.randn((1, s_x, s_y, s_z), generator=set_seed(seed), device='cuda') * std + mean
     return result.unsqueeze(0).cuda()
 
 def generate_patch_singau(size, std = 1, seed = None, lamuda = 1):
@@ -80,6 +63,7 @@ def generate_patch_singau(size, std = 1, seed = None, lamuda = 1):
     result = result.unsqueeze(0).cuda()
     result = lamuda * torch.randn((1, s_x, s_y, s_z), generator=seed, device='cuda') * std + (1-lamuda) * result
     return result
+
 
 def replace_patch(latent, bbox, patch, theta = None):
     theta = theta / 100 * np.pi / 2
@@ -96,7 +80,7 @@ def replace_patch(latent, bbox, patch, theta = None):
 # bounding_box_latent_source = [40,20,24,30]
 # bounding_box_latent_target = [20,10,24,30]
 
-for i in range(19900,20000):
+for i in range(19999,20000):
     seed_source = seeds_plus[variance_index_sorted[0]]
     seed_target = seeds_plus[variance_index_sorted[i]]
 
@@ -107,7 +91,7 @@ for i in range(19900,20000):
     prompt_target = "A sports ball is caught in a fence." 
 
     bounding_box_latent_source = [0,20,24,30]
-    bounding_box_latent_target = [30,30,24,24]
+    bounding_box_latent_target = [10,40,24,24]
 
 
 
@@ -152,9 +136,10 @@ for i in range(19900,20000):
         axs[1][1].imshow(latents_target_final)
         
         
-        theta = 10
+        theta = 100
         x_t, y_t, width_t, height_t = bounding_box_latent_target
-        patch = generate_patch_sin((4,height_t, width_t))
+        
+        patch = generate_patch_gaussian((4,height_t, width_t), std = 1.0, mean = 0.10)
         # patch = generate_patch_singau((4,height_t, width_t), seed = set_seed(seed_target), lamuda = 0.85, std = 1)
         
         latents_target = replace_patch(latents_target, bounding_box_latent_target, patch, theta)
@@ -172,4 +157,4 @@ for i in range(19900,20000):
         axs[2][1].add_patch(plt.Rectangle((bounding_box_latent_target[0], bounding_box_latent_target[1]), bounding_box_latent_target[2], bounding_box_latent_target[3], fill=None, edgecolor='blue', lw=2))
         axs[2][1].imshow(latents_target_final)
             
-        fig.savefig(f'pics/replace_any/ball/replace_{i}.png')
+        fig.savefig(f'pics/replace_any/replace.png')

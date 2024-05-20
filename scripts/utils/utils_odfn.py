@@ -7,6 +7,8 @@ import pickle
 import math
 import matplotlib.pyplot as plt
 import json
+import sys
+sys.path.append('/home/banyh2000/odfn')
 
 seeds_plus = np.load('scripts/utils/seeds.npy').tolist()
 
@@ -74,6 +76,16 @@ def seeds_plus_spilt(spilt):
         raise ValueError('category error')
     return seeds_sub
 
+def return_seeds_plus_spilt(seed):
+    if seed in seeds_plus[:17500]:
+        return 'train'
+    elif seed in seeds_plus[17500:18500]:
+        return 'val'
+    elif seed in seeds_plus[18500:20000]:
+        return 'test'
+    else:
+        raise ValueError('category error')
+
 def extract_ground_seeds(image_id):
     class_id = image_id //100000
     seed_id = image_id // 100 % 1000
@@ -130,3 +142,15 @@ variance = np.zeros(20000)
 for key, value in dict_variance.items():
     variance[int(key)] = value
 variance_index_sorted = np.argsort(variance)
+
+with open('scripts/utils/dict_variance_5_class.json', 'r') as f:
+    dict_variance_5_class = json.load(f)
+
+variance_5_class = np.zeros(20000)
+for key, value in dict_variance_5_class.items():
+    variance_5_class[int(key)] = value
+variance_5_class_index_sorted = np.argsort(variance_5_class)
+
+
+with open('scripts/utils/detector_results.json', 'r') as f:
+    detector_results = json.load(f)
