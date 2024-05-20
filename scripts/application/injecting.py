@@ -85,7 +85,7 @@ def get_patch_natural(num=0):
     
     
 mode = ['resample', 'shift gaussian', 'functional', 'natural']
-mode = mode[3]
+mode = mode[2]
 model_id = 'stabilityai/stable-diffusion-2-base'
 device = 'cuda'
 
@@ -97,10 +97,10 @@ prompt = "A sports ball is caught in a fence."
 exp_name = 'exp1'
 bounding_box = [10,30,24,24]
 x_t, y_t, width_t, height_t = bounding_box
-theta = 10
+theta = 8
 theta = theta / 100 * np.pi / 2
 mean = 0
-std = 1.2
+std = 0.8
 
 values = []
 for i in range(200):
@@ -138,10 +138,10 @@ for i in range(200):
         ax.add_patch(rect)
         rect = plt.Rectangle((bounding_box_image[0],bounding_box_image[1]),bounding_box_image[2],bounding_box_image[3],linewidth=1,edgecolor='b',facecolor='none')
         ax.add_patch(rect)
-        plt.savefig(f'pics/injection/output/{i}.png')
+        # plt.savefig(f'pics/injection/output/{i}.png')
         iou = Con50(bounding_box_image,bounding_box_generated)
         print(iou)
         values.append(iou)
     import json
-    with open('pics/injection/output_natural.json','w') as f:
+    with open('pics/injection/output_functional_8.json','w') as f:
         json.dump(values,f)
