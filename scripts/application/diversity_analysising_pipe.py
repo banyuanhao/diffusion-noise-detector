@@ -6,9 +6,9 @@ import numpy as np
 
 base_path = '/nfs/data/yuanhaoban/ODFN/diversity/'
 exp = 'exp1'
-group = 'rejection'
+group = 'control' 
 labels = 47
-class_name = 'apple'
+class_name = 'various'
 
 
 import json
@@ -28,4 +28,6 @@ for key, bboxes in data.items():
     variances.append(variance)
     
 variances = np.array(variances)
-print(np.mean(variances))
+print(np.mean(variances)/64)
+
+# 171 135

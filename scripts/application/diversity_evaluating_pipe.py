@@ -6,9 +6,9 @@ import os
 inferencer = DetInferencer(model='rtmdet-ins_l_8xb32-300e_coco')
 
 exp = 'exp1'
-group = 'control'
+group = 'initno'
 labels = 47
-class_name = 'apple'
+class_name = 'various'
 
 path = '/nfs/data/yuanhaoban/ODFN/diversity/' + class_name + '/' + exp + '/' + group + '/images/'
 names = os.listdir(path)
@@ -18,7 +18,7 @@ for i in range(300):
     dict_bbox[i] = []
 for name in names:
     seed_id = int(name.split('_')[1])
-    if seed_id >= 70:
+    if seed_id >= 300:
         continue
     prompt_id = int(name.split('_')[3].split('.')[0])
     if prompt_id == 0 or prompt_id == 9:
@@ -26,7 +26,7 @@ for name in names:
     results = inferencer(path + name)
     results = results['predictions'][0]
     for label,score,bbox in zip(results['labels'],results['scores'],results['bboxes']):
-        if  label == labels and score > 0.75: ## whether 32
+        if  score > 0.75: ## whether 32
             dict_bbox[int(seed_id)].append(bbox)
             break
 
