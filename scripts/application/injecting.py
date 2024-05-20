@@ -100,7 +100,7 @@ x_t, y_t, width_t, height_t = bounding_box
 theta = 8
 theta = theta / 100 * np.pi / 2
 mean = 0
-std = 0.9
+std = 1.6
 
 values = []
 for i in range(200):
@@ -143,5 +143,5 @@ for i in range(200):
         print(iou)
         values.append(iou)
     import json
-    with open('pics/injection/output_shift_0.9.json','w') as f:
+    with open('/home/banyh2000/odfn/wrapup_data/handcraft/output_shift_1.6.json','w') as f:
         json.dump(values,f)
