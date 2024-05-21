@@ -5,8 +5,8 @@ import os
 
 inferencer = DetInferencer(model='rtmdet-ins_l_8xb32-300e_coco')
 
-exp = 'exp2'
-group = 'rejection'
+exp = 'exp1'
+group = 'initno'
 class_name = 'various'
 class_id_dict = {0:32,1:19,2:47,3:1,4:75}
 path = '/nfs/data/yuanhaoban/ODFN/position_following/' + class_name + '/' + exp + '/' + group + '/images/'
@@ -36,3 +36,4 @@ print(count)
 
 # rejection 2341 0.4 2091 0.75
 # control 1596 0.4  1427 0.75
+# initno  0.4  1527 0.75

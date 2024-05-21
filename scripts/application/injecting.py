@@ -130,7 +130,7 @@ def get_patch_natural(num=0):
     
 mode = ['resample', 'shift gaussian', 'functional', 'natural']
 mode = mode[3]
-num = 6000
+num = 5000
 model_id = 'stabilityai/stable-diffusion-2-base'
 device = 'cuda'
 
