@@ -6,7 +6,7 @@ import os
 inferencer = DetInferencer(model='rtmdet-ins_l_8xb32-300e_coco')
 
 exp = 'exp2'
-group = 'rejection'
+group = 'initno'
 class_name = 'various'
 class_id_dict = {0:32,1:19,2:47,3:1,4:75}
 path = '/nfs/data/yuanhaoban/ODFN/position_following/' + class_name + '/' + exp + '/' + group + '/images/'
