@@ -10,7 +10,7 @@
 
 This repo contains data and code of the paper "[The Crystal Ball Hypothesis in diffusion models: Anticipating object positions from initial noise](https://arxiv.org/abs/2406.01970)".
 
-Presented by AIGC Research Collaboration
+Presented by TurningPoint AI
 
 Authors: [Yuanhao Ban](https://github.com/banyuanhao),[Ruochen Wang](https://ruocwang.github.io/),[Tianyi Zhou](https://tianyizhou.github.io/),[Boqing Gong](http://boqinggong.info/),[Cho-Jui Hsieh](https://scholar.google.com/citations?user=Wy89g4IAAAAJ&hl=en),[Minhao Cheng](https://cmhcbb.github.io/), 
 
