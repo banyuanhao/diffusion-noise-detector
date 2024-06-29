@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 import sys
 sys.path.append('/home/banyh2000/odfn')
-from scripts.utils.utils_odfn import variance_5_class_index_sorted, seeds_plus
+from scripts.utils.utils_odfn import variance_5_class_index_sorted, seeds_plus, variance_index_sorted
 
 spilt = 'train'
 mode = '1_category_5_class_npy'
@@ -17,12 +17,13 @@ data = json.load(open(path, 'r'))
 
 images = data['images']
 annotations = data['annotations']
+
 image = images[15070]
 image_path = image['file_name']
 image_id = image['id']
 
 # image_id = variance_5_class_index_sorted[15]
-image_id = variance_5_class_index_sorted[1210]
+image_id = variance_index_sorted[19930]
 # image_id = variance_5_class_index_sorted[610]
 place_holder = np.zeros((64,64),dtype=np.float32)
 for ann in annotations:

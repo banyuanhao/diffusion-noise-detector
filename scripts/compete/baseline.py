@@ -48,22 +48,20 @@ def replace(latent_source, latent_target, bounding_box_latent_source, bounding_b
     return latent_target
 
 
+model_id = 'stabilityai/stable-diffusion-2-base'
+device = 'cuda'
+pipe = StableDiffusionPipeline.from_pretrained(model_id, use_auth_token=True).to(device)
 for i, coco_class in enumerate(coco_classes):
-    seed_source = seeds_plus[variance_index_sorted[19910]]
-    seed_target = seeds_plus[variance_index_sorted[19910]]
-
-    prompt_source = f"a {coco_class} on the left"
-    prompt_target = f"a {coco_class}"
-
-
-    model_id = 'stabilityai/stable-diffusion-2-base'
-    device = 'cuda'
-    pipe = StableDiffusionPipeline.from_pretrained(model_id, use_auth_token=True).to(device)
-
-    latents_source = torch.randn((1,4,64,64), generator=set_seed(seed_source), device='cuda', dtype=torch.float32)
-    latents_target = torch.randn((1,4,64,64), generator=set_seed(seed_target), device='cuda', dtype=torch.float32)
-
+    prompt = f"a {coco_class} on the left"
+    prompt_ = f"a {coco_class}"
+    fig, ax = plt.subplots(1, 2, figsize=(10, 5))
+    fig.tight_layout()
+    seed = torch.randint(0, 2**32, (1,)).item()
     with torch.no_grad():
-
-        out = pipe(prompt=prompt_source, generator=set_seed(seed_source), latents = latents_source)
-        out.images[0].save(f'/home/banyh2000/odfn/scripts/compete/images/seed_{i}_prompt_source.png')
+        out = pipe(prompt=prompt, generator=set_seed(seed))
+        ax[0].imshow(out.images[0])
+        ax[0].axis('off')
+        out = pipe(prompt=prompt_, generator=set_seed(seed))
+        ax[1].imshow(out.images[0])
+        ax[1].axis('off')
+    fig.savefig(f'pics/compete/one_seed/baseline/{coco_class}.png')
