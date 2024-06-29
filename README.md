@@ -1,9 +1,9 @@
 # The Crystal Ball Hypothesis in diffusion models: Anticipating object positions from initial noise
 
-![The Crystal Ball Hypothesis in diffusion models: Anticipating object positions from initial noise](https://banyuanhao.github.io/Noises/)
+
 ![Dataset](https://img.shields.io/badge/Dataset-ODFN-blue)<br>
 ![Interpretability](https://img.shields.io/badge/Task-Interpretability-red)
-![T2I-Diffusion](https://img.shields.io/badge/Task-T2I-Diffusion-red)
+<!-- ![T2I-Diffusion](https://img.shields.io/badge/Task-T2I-Diffusion-red) -->
 ![Prompt Optimization](https://img.shields.io/badge/Task-Prompt--Optimization-red)<br>
 ![GPT-4V](https://img.shields.io/badge/Model-GPT--4V-yellow)
 ![Gemini-pro-vision](https://img.shields.io/badge/Model-Gemini--pro--vision-yellow)
