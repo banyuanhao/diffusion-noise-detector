@@ -137,10 +137,14 @@ def get_plt(num):
 
 with open('scripts/utils/dict_variance.json', 'r') as f:
     dict_variance = json.load(f)
+
 variance = np.zeros(20000)
 for key, value in dict_variance.items():
     variance[int(key)] = value
-variance_index_sorted = np.load('scripts/utils/variance_index_sorted.npy')
+variance_index_sorted = np.argsort(variance)
+print(variance_index_sorted[:10])
+print('sorted')
+exit()
 
 with open('scripts/utils/dict_variance_5_class.json', 'r') as f:
     dict_variance_5_class = json.load(f)
@@ -148,7 +152,7 @@ with open('scripts/utils/dict_variance_5_class.json', 'r') as f:
 variance_5_class = np.zeros(20000)
 for key, value in dict_variance_5_class.items():
     variance_5_class[int(key)] = value
-variance_5_class_index_sorted = np.load('scripts/utils/variance_5_class_index_sorted.npy')
+variance_5_class_index_sorted = np.argsort(variance_5_class)
 
 
 with open('scripts/utils/detector_results.json', 'r') as f:
