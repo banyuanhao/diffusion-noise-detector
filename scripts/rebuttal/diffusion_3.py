@@ -1,6 +1,6 @@
 import sys
 sys.path.append('/home/banyh2000/odfn')
-from mmdet.apis import DetInferencer
+# from mmdet.apis import DetInferencer
 from diffusers import StableDiffusion3Pipeline
 import torch
 import random
@@ -83,21 +83,21 @@ def get_patch_natural(num=0):
     
     # resize bounding_box to a fixed width and height 24x24
     seed = seeds_plus[variance_index_sorted[num]]
-    latents = torch.randn((1,4,64,64), generator=set_seed(seed), device='cuda', dtype=torch.float32)
+    latents = torch.randn((1,4,64,64), generator=set_seed(seed), device='cuda', dtype=torch.float16)
     patch = latents[:, :,bounding_box[1]:bounding_box[1]+bounding_box[3],bounding_box[0]:bounding_box[0]+bounding_box[2]].clone()
     return patch
 
 num = 0
-model = 'unclip'
+model = 'sd3'
 device = 'cuda'
 
 mode = ['resample', 'shift gaussian', 'functional', 'natural']
-mode = mode[0]
+mode = mode[3]
 model_id = 'stabilityai/stable-diffusion-3-medium-diffusers'
 pipe = StableDiffusion3Pipeline.from_pretrained(model_id, torch_dtype=torch.float32)
 
 
-inferencer = DetInferencer(model='rtmdet-ins_l_8xb32-300e_coco')
+# inferencer = DetInferencer(model='rtmdet-ins_l_8xb32-300e_coco')
 
 prompt = "A sports ball is caught in a fence."
 bounding_box = [10,30,24,24]
@@ -135,19 +135,19 @@ for i in range(200):
         # out = pipe(prompt=prompt, latents = latents)
         out = pipe(prompt=prompt)
         image = np.array(out.images[0])
-        results = inferencer(image)
-        bounding_box_generated = results['predictions'][0]['bboxes'][0]       
+        # results = inferencer(image)
+        # bounding_box_generated = results['predictions'][0]['bboxes'][0]       
         # compute IoU 50 between the generated bounding box and the original bounding box
-        fig,ax = plt.subplots()
-        ax.imshow(image)
-        rect = plt.Rectangle((bounding_box_generated[0],bounding_box_generated[1]),bounding_box_generated[2]-bounding_box_generated[0],bounding_box_generated[3]-bounding_box_generated[1],linewidth=1,edgecolor='r',facecolor='none')
-        ax.add_patch(rect)
-        rect = plt.Rectangle((bounding_box_image[0],bounding_box_image[1]),bounding_box_image[2],bounding_box_image[3],linewidth=1,edgecolor='b',facecolor='none')
-        ax.add_patch(rect)
-        plt.savefig(f'/home/banyh2000/odfn/scripts/rebuttal/imgs/{i}.png')
-        iou = Con50(bounding_box_image,bounding_box_generated)
-        print(iou)
-        values.append(iou)
+        # fig,ax = plt.subplots()
+        # ax.imshow(image)
+        # rect = plt.Rectangle((bounding_box_generated[0],bounding_box_generated[1]),bounding_box_generated[2]-bounding_box_generated[0],bounding_box_generated[3]-bounding_box_generated[1],linewidth=1,edgecolor='r',facecolor='none')
+        # ax.add_patch(rect)
+        # rect = plt.Rectangle((bounding_box_image[0],bounding_box_image[1]),bounding_box_image[2],bounding_box_image[3],linewidth=1,edgecolor='b',facecolor='none')
+        # ax.add_patch(rect)
+        # plt.savefig(f'/home/banyh2000/odfn/scripts/rebuttal/imgs/{i}.png')
+        # iou = Con50(bounding_box_image,bounding_box_generated)
+        # print(iou)
+        # values.append(iou)
     import json
     with open(f'/home/banyh2000/odfn/scripts/rebuttal/data/generalization/model_{model}_{mode}.json','w') as f:
         json.dump(values,f)
