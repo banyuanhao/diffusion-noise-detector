@@ -47,7 +47,7 @@ def generate_patch_gaussian(size, mean = 0, std = 1, seed = None):
         seed = torch.randint(0,1000000,(1,)).item()
     s_x, s_y, s_z = size
     result = torch.randn((1, s_x, s_y, s_z), generator=set_seed(seed), device='cuda') * std + mean
-    return result.unsqueeze(0).cuda()
+    return result.cuda()
 
 # compute if the p percent of the generated bounding box is in the original bounding box
 def Con50(bounding_box_1,bounding_box_2):
@@ -106,20 +106,21 @@ theta = 8
 theta = theta / 100 * np.pi / 2
 mean = 0
 std = 0.9
-
+channels = 16
 values = []
-for i in range(200):
+for i in range(200,400):
     print(i)
     seed = i
 
-    latents = torch.randn((1,4,64,64), generator=set_seed(seed), device='cuda', dtype=torch.float32)
+    latents = torch.randn((1,channels,64,64), generator=set_seed(seed), device='cuda', dtype=torch.float32)
     bounding_box_image = [value * 8 for value in bounding_box]
 
     with torch.no_grad():
         
         if mode == 'resample':
             patch = generate_patch_gaussian((4,height_t, width_t), std = 1.0, mean = 0)
-            latents[:, :, y_t:y_t+height_t, x_t:x_t+width_t] = patch
+            print(patch.shape)
+            latents[:, :, y_t:y_t+height_t, x_t:x_t+width_t] = patch.repeat(1,channels//4,1,1)
         elif mode == 'shift gaussian':
             patch = generate_patch_gaussian((4,height_t, width_t), std = std, mean = 0)
             latents[:, :, y_t:y_t+height_t, x_t:x_t+width_t] = patch
@@ -128,13 +129,16 @@ for i in range(200):
             latents[:, :, y_t:y_t+height_t, x_t:x_t+width_t] = patch * np.sin(theta) + np.cos(theta) * latents[:, :, y_t:y_t+height_t, x_t:x_t+width_t]
         elif mode == 'natural':
             patch = get_patch_natural(num)
-            latents[:, :, y_t:y_t+height_t, x_t:x_t+width_t] = patch
+            latents[:, :, y_t:y_t+height_t, x_t:x_t+width_t] = patch.repeat(1,channels//4,1,1)
         else:
             raise ValueError('mode not recognized')
         
-        # out = pipe(prompt=prompt, latents = latents)
-        out = pipe(prompt=prompt)
-        image = np.array(out.images[0])
+        out = pipe(prompt=prompt, latents = latents)
+        out.images[0].save(f'/home/banyh2000/odfn/scripts/rebuttal/imgs/{i}.png')
+        # out = pipe(prompt=prompt)
+        # for j in range(1):
+        #     out.images[j].save(f'/home/banyh2000/odfn/scripts/rebuttal/imgs/{i}_{j}.png')
+        # image = np.array(out.images[0])
         # results = inferencer(image)
         # bounding_box_generated = results['predictions'][0]['bboxes'][0]       
         # compute IoU 50 between the generated bounding box and the original bounding box
@@ -148,6 +152,6 @@ for i in range(200):
         # iou = Con50(bounding_box_image,bounding_box_generated)
         # print(iou)
         # values.append(iou)
-    import json
-    with open(f'/home/banyh2000/odfn/scripts/rebuttal/data/generalization/model_{model}_{mode}.json','w') as f:
-        json.dump(values,f)
+    # import json
+    # with open(f'/home/banyh2000/odfn/scripts/rebuttal/data/generalization/model_{model}_{mode}.json','w') as f:
+    #     json.dump(values,f)
