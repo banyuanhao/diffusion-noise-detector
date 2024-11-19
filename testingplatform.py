@@ -1,30 +1,58 @@
-from diffusers import DiTPipeline, DPMSolverMultistepScheduler
-import torch
+import os
+from pathlib import Path
+from PIL import Image
+from multiprocessing import Pool, cpu_count
 
-pipe = DiTPipeline.from_pretrained("facebook/DiT-XL-2-256", torch_dtype=torch.float16)
-pipe.scheduler = DPMSolverMultistepScheduler.from_config(pipe.scheduler.config)
-pipe = pipe.to("cuda")
+def convert_to_jpg(image_path):
+    """
+    Converts a .JPEG image to .jpg format.
+    """
+    try:
+        img = Image.open(image_path)
+        new_path = image_path.with_suffix('.jpg')
+        img.save(new_path, "JPEG")
+        img.close()
+        # Optionally remove the original .JPEG file
+        os.remove(image_path)
+        print(f"Converted: {image_path} -> {new_path}")
+    except Exception as e:
+        print(f"Failed to convert {image_path}: {e}")
 
-def torchmodify(name) :
-    a=name.split('.')
-    for i,s in enumerate(a) :
-        if s.isnumeric() :
-            a[i]="_modules['"+s+"']"
-    return '.'.join(a)
-import torch.nn as nn
-for name, module in pipe.transformer.named_modules() :
-    if isinstance(module,nn.GELU) :
-        exec('model.'+torchmodify(name)+'=nn.GELU()')
+def process_folder(folder_path):
+    """
+    Finds all .JPEG files in the folder and its subfolders.
+    """
+    folder_path = Path(folder_path)
+    return [file for file in folder_path.rglob("*.JPEG")]
 
-# pick words from Imagenet class labels
-pipe.labels  # to print all available words
+def distribute_conversion(image_paths):
+    """
+    Uses multiprocessing to convert images in parallel.
+    """
+    # Determine the number of processes to use
+    num_processes = min(cpu_count(), len(image_paths))
+    print(f"Using {num_processes} processes to process {len(image_paths)} images.")
+    
+    # Use multiprocessing to process the files
+    with Pool(processes=num_processes) as pool:
+        pool.map(convert_to_jpg, image_paths)
 
-# pick words that exist in ImageNet
-words = ["white shark", "umbrella"]
+if __name__ == "__main__":
+    # Specify the folder containing .JPEG files
+    folder_path = input("Enter the folder path containing .JPEG files: ").strip()
 
-class_ids = pipe.get_label_ids(words)
+    if not os.path.isdir(folder_path):
+        print(f"Error: The folder {folder_path} does not exist.")
+        exit(1)
 
-generator = torch.manual_seed(33)
-output = pipe(class_labels=class_ids, num_inference_steps=25, generator=generator)
+    # Collect all .JPEG files
+    print("Scanning for .JPEG files...")
+    jpeg_files = process_folder(folder_path)
 
-image = output.images[0]  # label 'white shark'
+    if not jpeg_files:
+        print("No .JPEG files found.")
+    else:
+        print(f"Found {len(jpeg_files)} .JPEG files.")
+        # Convert files in a distributed manner
+        distribute_conversion(jpeg_files)
+        print("Conversion complete!")
