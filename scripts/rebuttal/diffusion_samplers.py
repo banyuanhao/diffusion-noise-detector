@@ -1,5 +1,5 @@
-import os
-os.environ["CUDA_VISIBLE_DEVICES"] = "7"
+# import os
+# os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 import sys
 sys.path.append('/home/banyh2000/odfn')
 from mmdet.apis import DetInferencer
@@ -97,9 +97,13 @@ mode = ['resample', 'shift gaussian', 'functional', 'natural']
 mode = mode[3]
 pipe = StableDiffusionPipeline.from_pretrained(model_id, use_auth_token=True).to(device)
 
-scheduler = 'PNDMScheduler_copy'
-from diffusers import LMSDiscreteScheduler, DDPMScheduler, DPMSolverSDEScheduler, DDIMScheduler, EulerDiscreteScheduler,EDMEulerScheduler,HeunDiscreteScheduler, UniPCMultistepScheduler,PNDMScheduler
-pipe.scheduler = PNDMScheduler.from_config(pipe.scheduler.config)
+from diffusers import LMSDiscreteScheduler, DDPMScheduler, DPMSolverSDEScheduler, DDIMScheduler, EulerDiscreteScheduler,EDMEulerScheduler,HeunDiscreteScheduler, UniPCMultistepScheduler, PNDMScheduler
+from diffusers import KDPM2AncestralDiscreteScheduler, EulerAncestralDiscreteScheduler, DPMSolverSDEScheduler, CMStochasticIterativeScheduler, DDPMScheduler, TCDScheduler, ScoreSdeVeScheduler, KarrasVeScheduler
+
+scheduler = 'DDIMScheduler'
+pipe.scheduler = DDIMScheduler.from_config(pipe.scheduler.config)
+# from diffusers import DPMSolverMultistepScheduler
+# pipe.scheduler = UniPCMultistepScheduler.from_config(pipe.scheduler.config)
 # pipe.scheduler = HeunDiscreteScheduler.from_config(pipe.scheduler.config)
 # pipe.scheduler = EDMEulerScheduler.from_config(pipe.scheduler.config)
 # pipe.scheduler = EulerDiscreteScheduler.from_config(pipe.scheduler.config)
@@ -107,6 +111,7 @@ pipe.scheduler = PNDMScheduler.from_config(pipe.scheduler.config)
 # pipe.scheduler = DDPMScheduler.from_config(pipe.scheduler.config)
 # pipe.scheduler = DPMSolverSDEScheduler.from_config(pipe.scheduler.config)
 # pipe.scheduler = DPMSolverSDEScheduler.from_config(pipe.scheduler.config)
+# pipe.scheduler = DPMSolverMultistepScheduler.from_config(pipe.scheduler.config)
 
 
 inferencer = DetInferencer(model='rtmdet-ins_l_8xb32-300e_coco')

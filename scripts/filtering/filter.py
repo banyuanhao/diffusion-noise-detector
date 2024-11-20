@@ -32,7 +32,7 @@ for i in range(20000):
     dict_variance[i] = []
 
 for spilt in ['train', 'val','test']:
-    mode = '1_category_5_class_npy'
+    mode = '1_category_1_class_npy'
     name = spilt + '_for_' + mode + '.json'
 
     base_path = '/nfs/data/yuanhaoban/ODFN/version_2/'
@@ -60,7 +60,14 @@ with open('dict_variance_5_class.json', 'w') as f:
 ### 3. plot the histogram
 print(len(list(dict_variance.values())))
 sort = sorted(list(dict_variance.values()))
+
+bar = 64*64*0.1*0.1
+for i in range(20000):
+    if sort[i] > bar:
+        print(i/20000)
+        break
 print(sort[10000])
 
 plt.hist(list(dict_variance.values()), bins=100)
+
 plt.savefig('pics/variance_5.png')

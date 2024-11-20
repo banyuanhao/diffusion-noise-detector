@@ -1,7 +1,7 @@
 import sys
 sys.path.append('/home/banyh2000/odfn')
-from mmdet.apis import DetInferencer
-from scripts.models.diffuserpipeline import StableDiffusionPipeline
+# from mmdet.apis import DetInferencer
+from diffusers import StableDiffusion3Pipeline
 import torch
 import random
 import numpy as np
@@ -9,7 +9,6 @@ from typing import TypeVar
 T = TypeVar('T')
 from PIL import Image
 from pathlib import Path
-import os
 from tqdm import tqdm
 from matplotlib import pyplot as plt
 from scripts.utils.utils_odfn import variance_index_sorted, seeds_plus,set_seed, variance_5_class_index_sorted
@@ -48,7 +47,7 @@ def generate_patch_gaussian(size, mean = 0, std = 1, seed = None):
         seed = torch.randint(0,1000000,(1,)).item()
     s_x, s_y, s_z = size
     result = torch.randn((1, s_x, s_y, s_z), generator=set_seed(seed), device='cuda') * std + mean
-    return result.unsqueeze(0).cuda()
+    return result.cuda()
 
 # compute if the p percent of the generated bounding box is in the original bounding box
 def Con50(bounding_box_1,bounding_box_2):
@@ -80,86 +79,48 @@ def IoU50(bounding_box_1,bounding_box_2):
 
 
 def get_patch_natural(num=0):
-    with open('/home/banyh2000/odfn/wrapup_data/hand/bounding boxes_1.json','r') as f:
-        values = json.load(f)
-    bounding_box = values[str(num)]
-    bounding_box[0] = (bounding_box[0] + bounding_box[2])//2 - 12
-    bounding_box[1] = (bounding_box[1] + bounding_box[3])//2 - 12
-    bounding_box = [int(value) for value in bounding_box]
-    bounding_box[2], bounding_box[3] = 24,24
-    bounding_box[0] = max(0,bounding_box[0])
-    bounding_box[1] = max(0,bounding_box[1])
-    if bounding_box[0] + bounding_box[2] > 64:
-        bounding_box[0] = 64 - bounding_box[2]
-    if bounding_box[1] + bounding_box[3] > 64:
-        bounding_box[1] = 64 - bounding_box[3]
-    print(bounding_box)
+    bounding_box = [40,27,24,24]
+    
     # resize bounding_box to a fixed width and height 24x24
     seed = seeds_plus[variance_index_sorted[num]]
-    latents = torch.randn((1,4,64,64), generator=set_seed(seed), device='cuda', dtype=torch.float32)
+    latents = torch.randn((1,4,64,64), generator=set_seed(seed), device='cuda', dtype=torch.float16)
     patch = latents[:, :,bounding_box[1]:bounding_box[1]+bounding_box[3],bounding_box[0]:bounding_box[0]+bounding_box[2]].clone()
     return patch
-        
-    # seed = seeds_plus[variance_index_sorted[num]]
-    # latents = torch.randn((1,4,64,64), generator=set_seed(seed), device='cuda', dtype=torch.float32)
-    # if num == 0:
-    #     bounding_box = [40,20,24,24]
-    # elif num == 19000:
-    #     bounding_box = [22,22,24,24]
-    # elif num == 19990:
-    #     bounding_box = [0,22,24,24]
-    # elif num == 19999:
-    #     bounding_box = [40,7,24,24]
-    # elif num == 1000:
-    # elif num == 3000:
-    # elif num == 5000:
-    #     bounding_box = [36,18,24,24]
-    # elif num == 7000:
-    # elif num == 90000:
-    # elif num == 11000:
-    # elif num == 13000:
-    # elif num == 15000:
-    # elif num == 17000:
-    # elif num == 19000:
-    # else:
-    #     raise ValueError('num not recognized')
-    # patch = latents[:, :,bounding_box[1]:bounding_box[1]+bounding_box[3],bounding_box[0]:bounding_box[0]+bounding_box[2]].clone()
-    # return patch
-    
-    
-    
-mode = ['resample', 'shift gaussian', 'functional', 'natural']
-mode = mode[3]
-num = 5000
-model_id = 'stabilityai/stable-diffusion-2-base'
+
+num = 0
+model = 'sd3'
 device = 'cuda'
 
-pipe = StableDiffusionPipeline.from_pretrained(model_id, use_auth_token=True).to(device)
-inferencer = DetInferencer(model='rtmdet-ins_l_8xb32-300e_coco')
+mode = ['resample', 'shift gaussian', 'functional', 'natural']
+mode = mode[3]
+model_id = 'stabilityai/stable-diffusion-3-medium-diffusers'
+pipe = StableDiffusion3Pipeline.from_pretrained(model_id, torch_dtype=torch.float32)
 
-# prompt = "A grizzly bear fishes in a rushing river."
+
+# inferencer = DetInferencer(model='rtmdet-ins_l_8xb32-300e_coco')
+
 prompt = "A sports ball is caught in a fence."
-exp_name = 'exp1'
 bounding_box = [10,30,24,24]
 x_t, y_t, width_t, height_t = bounding_box
 theta = 8
 theta = theta / 100 * np.pi / 2
 mean = 0
 std = 0.9
-
+channels = 16
 values = []
-for i in range(200):
+for i in range(200,400):
     print(i)
     seed = i
 
-    latents = torch.randn((1,4,64,64), generator=set_seed(seed), device='cuda', dtype=torch.float32)
+    latents = torch.randn((1,channels,64,64), generator=set_seed(seed), device='cuda', dtype=torch.float32)
     bounding_box_image = [value * 8 for value in bounding_box]
 
     with torch.no_grad():
         
         if mode == 'resample':
             patch = generate_patch_gaussian((4,height_t, width_t), std = 1.0, mean = 0)
-            latents[:, :, y_t:y_t+height_t, x_t:x_t+width_t] = patch
+            print(patch.shape)
+            latents[:, :, y_t:y_t+height_t, x_t:x_t+width_t] = patch.repeat(1,channels//4,1,1)
         elif mode == 'shift gaussian':
             patch = generate_patch_gaussian((4,height_t, width_t), std = std, mean = 0)
             latents[:, :, y_t:y_t+height_t, x_t:x_t+width_t] = patch
@@ -168,25 +129,29 @@ for i in range(200):
             latents[:, :, y_t:y_t+height_t, x_t:x_t+width_t] = patch * np.sin(theta) + np.cos(theta) * latents[:, :, y_t:y_t+height_t, x_t:x_t+width_t]
         elif mode == 'natural':
             patch = get_patch_natural(num)
-            latents[:, :, y_t:y_t+height_t, x_t:x_t+width_t] = patch
+            latents[:, :, y_t:y_t+height_t, x_t:x_t+width_t] = patch.repeat(1,channels//4,1,1)
         else:
             raise ValueError('mode not recognized')
         
         out = pipe(prompt=prompt, latents = latents)
-        image = np.array(out.images[0])
-        results = inferencer(image)
-        bounding_box_generated = results['predictions'][0]['bboxes'][0]       
+        out.images[0].save(f'/home/banyh2000/odfn/scripts/rebuttal/imgs/{i}.png')
+        # out = pipe(prompt=prompt)
+        # for j in range(1):
+        #     out.images[j].save(f'/home/banyh2000/odfn/scripts/rebuttal/imgs/{i}_{j}.png')
+        # image = np.array(out.images[0])
+        # results = inferencer(image)
+        # bounding_box_generated = results['predictions'][0]['bboxes'][0]       
         # compute IoU 50 between the generated bounding box and the original bounding box
-        fig,ax = plt.subplots()
-        ax.imshow(image)
-        rect = plt.Rectangle((bounding_box_generated[0],bounding_box_generated[1]),bounding_box_generated[2]-bounding_box_generated[0],bounding_box_generated[3]-bounding_box_generated[1],linewidth=1,edgecolor='r',facecolor='none')
-        ax.add_patch(rect)
-        rect = plt.Rectangle((bounding_box_image[0],bounding_box_image[1]),bounding_box_image[2],bounding_box_image[3],linewidth=1,edgecolor='b',facecolor='none')
-        ax.add_patch(rect)
-        plt.savefig(f'pics/injection/output/{i}.png')
-        iou = Con50(bounding_box_image,bounding_box_generated)
-        print(iou)
-        values.append(iou)
-    import json
-    with open(f'pics/injection/weak_auto_{num}.json','w') as f:
-        json.dump(values,f)
+        # fig,ax = plt.subplots()
+        # ax.imshow(image)
+        # rect = plt.Rectangle((bounding_box_generated[0],bounding_box_generated[1]),bounding_box_generated[2]-bounding_box_generated[0],bounding_box_generated[3]-bounding_box_generated[1],linewidth=1,edgecolor='r',facecolor='none')
+        # ax.add_patch(rect)
+        # rect = plt.Rectangle((bounding_box_image[0],bounding_box_image[1]),bounding_box_image[2],bounding_box_image[3],linewidth=1,edgecolor='b',facecolor='none')
+        # ax.add_patch(rect)
+        # plt.savefig(f'/home/banyh2000/odfn/scripts/rebuttal/imgs/{i}.png')
+        # iou = Con50(bounding_box_image,bounding_box_generated)
+        # print(iou)
+        # values.append(iou)
+    # import json
+    # with open(f'/home/banyh2000/odfn/scripts/rebuttal/data/generalization/model_{model}_{mode}.json','w') as f:
+    #     json.dump(values,f)

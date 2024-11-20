@@ -60,8 +60,9 @@ def replace(latent_source, latent_target, bounding_box_latent_source, bounding_b
 # bounding_box_latent_source = [40,20,24,30]
 # bounding_box_latent_target = [20,10,24,30]
 
-for i in range(0, 100):
-    theta = 2 * np.pi * i / 100 / 4
+for i in range(0, 10):
+    # theta = 2 * np.pi * i / 100 / 4
+    theta = 0
     
     seed_source = seeds_plus[variance_index_sorted[0]]
     seed_target = seeds_plus[variance_index_sorted[19981]]
