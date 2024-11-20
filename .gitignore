@@ -11,3 +11,5 @@ scripts/models/__pycache__
 scripts/__pycache__
 scripts/rebuttal/data
 scripts/rebuttal/imgs
+*.png
+rebuttal/

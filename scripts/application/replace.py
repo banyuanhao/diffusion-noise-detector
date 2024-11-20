@@ -64,6 +64,7 @@ def self_paste(latent, bounding_box_latent_source, bounding_box_latent_target):
 # print(variance_index_sorted[0])
 # print(seeds_plus[variance_index_sorted[0]])
 seed = seeds_plus[variance_index_sorted[0]]
+print(seed)
 prompt = "A sports ball is caught in a fence."
 bounding_box_latent_source = [40,20,24,30]
 bounding_box_latent_target = [0,20,24,30]
@@ -122,4 +123,4 @@ with torch.no_grad():
     axs[1][1].add_patch(plt.Rectangle((bounding_box_latent_target[0], bounding_box_latent_target[1]), bounding_box_latent_target[2], bounding_box_latent_target[3], fill=None, edgecolor='blue', lw=2))
     axs[1][1].imshow(latents_final)
     
-    fig.savefig(f'pics/flip.png')
+    fig.savefig(f'pics/flip_.png')

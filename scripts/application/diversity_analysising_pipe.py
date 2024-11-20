@@ -6,7 +6,10 @@ import numpy as np
 
 base_path = '/nfs/data/yuanhaoban/ODFN/diversity/'
 exp = 'exp1'
-group = 'control' 
+# group = 'llm' 102.097
+# group = 'attend' 145.16
+# group = 'structure' 133.92
+
 labels = 47
 class_name = 'various'
 

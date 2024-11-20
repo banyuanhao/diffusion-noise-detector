@@ -51,11 +51,11 @@ def replace(latent_source, latent_target, bounding_box_latent_source, bounding_b
 model_id = 'stabilityai/stable-diffusion-2-base'
 device = 'cuda'
 pipe = StableDiffusionPipeline.from_pretrained(model_id, use_auth_token=True).to(device)
-id = 19901
+id = 0
 seed = seeds_plus[variance_index_sorted[id]]
 os.makedirs(f'pics/compete/duplicate/right/{id}', exist_ok=True)
 for i, coco_class in enumerate(coco_classes):
-    prompt = f"a {coco_class} on the right side"
+    prompt = f"a {coco_class} on the left side"
     prompt_ = f"a {coco_class}"
     fig, ax = plt.subplots(1, 2, figsize=(10, 5))
     fig.tight_layout()
@@ -66,4 +66,4 @@ for i, coco_class in enumerate(coco_classes):
         out = pipe(prompt=prompt_, generator=set_seed(seed))
         ax[1].imshow(out.images[0])
         ax[1].axis('off')
-    fig.savefig(f'pics/compete/duplicate/right/{id}/{coco_class}.png')
+    fig.savefig(f'pics/compete/duplicate/right/{id}/{coco_class}_left.png')

@@ -6,17 +6,19 @@ import os
 inferencer = DetInferencer(model='rtmdet-ins_l_8xb32-300e_coco')
 
 exp = 'exp1'
-group = 'initno'
+group = 'llm'
 labels = 47
 class_name = 'various'
 
-path = '/nfs/data/yuanhaoban/ODFN/diversity/' + class_name + '/' + exp + '/' + group + '/images/'
+path = '/nfs/data/yuanhaoban/ODFN/diversity/' + class_name + '/' + exp + '/' + group + '/'
 names = os.listdir(path)
 
 dict_bbox = {}
 for i in range(300):
     dict_bbox[i] = []
 for name in names:
+    if name == 'images':
+        continue
     seed_id = int(name.split('_')[1])
     if seed_id >= 300:
         continue

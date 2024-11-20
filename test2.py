@@ -1,22 +1,15 @@
 # finetuned, unCLIP, DiffusionXL
 import os
-os.environ["CUDA_VISIBLE_DEVICES"] = "3"
+os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 import sys
 sys.path.append('/home/banyh2000/odfn')
-from mmdet.apis import DetInferencer
-from diffusers import StableDiffusionXLPipeline, StableDiffusionPipeline, StableUnCLIPPipeline
+# from mmdet.apis import DetInferencer
+from diffusers import StableUnCLIPPipeline
 import torch
-import random
 import numpy as np
 from typing import TypeVar
 T = TypeVar('T')
-from PIL import Image
-from pathlib import Path
-from tqdm import tqdm
-from matplotlib import pyplot as plt
 from scripts.utils.utils_odfn import variance_index_sorted, seeds_plus,set_seed, variance_5_class_index_sorted
-
-import json
 
 def replace(latent_source, latent_target, bounding_box_latent_source, bounding_box_latent_target):
     """_summary_
@@ -84,7 +77,6 @@ def IoU50(bounding_box_1,bounding_box_2):
 def get_patch_natural(num=0):
     bounding_box = [40,27,24,24]
     
-    # resize bounding_box to a fixed width and height 24x24
     seed = seeds_plus[variance_index_sorted[num]]
     latents = torch.randn((1,4,64,64), generator=set_seed(seed), device='cuda', dtype=torch.float32)
     patch = latents[:, :,bounding_box[1]:bounding_box[1]+bounding_box[3],bounding_box[0]:bounding_box[0]+bounding_box[2]].clone()
@@ -95,25 +87,35 @@ model = 'unclip'
 device = 'cuda'
 
 mode = ['resample', 'shift gaussian', 'functional', 'natural']
-mode = mode[3]
-model_id = 'fusing/stable-unclip-2-1-l'
-# model_id = 'oraul/finetuned_stable-diffusion-v1-4_FFHQ_smaller_ep_2'
-# model_id = 'Kvikontent/midjourney-v6'
-# pipe = StableUnCLIPPipeline.from_pretrained(model_id, use_auth_token=True).to(device)
+mode = mode[1]
+from diffusers import UnCLIPScheduler, DDPMScheduler, StableUnCLIPPipeline
+from diffusers.models import PriorTransformer
+from transformers import CLIPTokenizer, CLIPTextModelWithProjection
 
-pipe = StableDiffusionXLPipeline.from_pretrained("stabilityai/stable-diffusion-xl-base-1.0", use_auth_token=True).to(device)
-pipe.load_lora_weights("ostris/crayon_style_lora_sdxl", weight_name="crayons_v1_sdxl.safetensors", adapter_name="crayons")
-# coreml-community/coreml-stable-diffusion-2-1-base 75
-# trinart_derrida_characters_v2_stable_diffusion  
-# chinese-style-stable-diffusion-2-v0.1 
-# Fictiverse/Stable_Diffusion_BalloonArt_Model
+prior_model_id = "kakaobrain/karlo-v1-alpha"
+prior = PriorTransformer.from_pretrained(prior_model_id, subfolder="prior")
 
-inferencer = DetInferencer(model='rtmdet-ins_l_8xb32-300e_coco')
+prior_text_model_id = "openai/clip-vit-large-patch14"
+prior_tokenizer = CLIPTokenizer.from_pretrained(prior_text_model_id)
+prior_text_model = CLIPTextModelWithProjection.from_pretrained(prior_text_model_id)
+prior_scheduler = UnCLIPScheduler.from_pretrained(prior_model_id, subfolder="prior_scheduler")
+prior_scheduler = DDPMScheduler.from_config(prior_scheduler.config)
+
+stable_unclip_model_id = "stabilityai/stable-diffusion-2-1-unclip-small"
+
+pipe = StableUnCLIPPipeline.from_pretrained(
+    stable_unclip_model_id,
+    prior_tokenizer=prior_tokenizer,
+    prior_text_encoder=prior_text_model,
+    prior=prior,
+    prior_scheduler=prior_scheduler,
+)
+
 
 prompt = "A sports ball is caught in a fence."
 bounding_box = [10,30,24,24]
 x_t, y_t, width_t, height_t = bounding_box
-theta = 8
+theta = 10
 theta = theta / 100 * np.pi / 2
 mean = 0
 std = 0.9
@@ -123,7 +125,7 @@ for i in range(200):
     print(i)
     seed = i
 
-    latents = torch.randn((1,4,64,64), generator=set_seed(seed), device='cuda', dtype=torch.float32)
+    latents = torch.randn((1,4,96,96), generator=set_seed(seed), device='cuda', dtype=torch.float32)
     bounding_box_image = [value * 8 for value in bounding_box]
 
     with torch.no_grad():
@@ -144,20 +146,5 @@ for i in range(200):
             raise ValueError('mode not recognized')
         
         out = pipe(prompt=prompt, latents = latents)
-        image = np.array(out.images[0])
-        results = inferencer(image)
-        bounding_box_generated = results['predictions'][0]['bboxes'][0]       
-        # compute IoU 50 between the generated bounding box and the original bounding box
-        fig,ax = plt.subplots()
-        ax.imshow(image)
-        rect = plt.Rectangle((bounding_box_generated[0],bounding_box_generated[1]),bounding_box_generated[2]-bounding_box_generated[0],bounding_box_generated[3]-bounding_box_generated[1],linewidth=1,edgecolor='r',facecolor='none')
-        ax.add_patch(rect)
-        rect = plt.Rectangle((bounding_box_image[0],bounding_box_image[1]),bounding_box_image[2],bounding_box_image[3],linewidth=1,edgecolor='b',facecolor='none')
-        ax.add_patch(rect)
-        plt.savefig(f'/home/banyh2000/odfn/scripts/rebuttal/imgs/{i}.png')
-        iou = Con50(bounding_box_image,bounding_box_generated)
-        print(iou)
-        values.append(iou)
-    import json
-    with open(f'/home/banyh2000/odfn/scripts/rebuttal/data/generalization/model_{model}_{mode}.json','w') as f:
-        json.dump(values,f)
+        print(out.images[0].size)
+        out.images[0].save(f'/home/banyh2000/odfn/scripts/rebuttal/imgs/{mode}_{i}.png')

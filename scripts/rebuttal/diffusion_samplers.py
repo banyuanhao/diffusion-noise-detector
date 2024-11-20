@@ -94,12 +94,12 @@ model_id = 'stabilityai/stable-diffusion-2-base'
 device = 'cuda'
 
 mode = ['resample', 'shift gaussian', 'functional', 'natural']
-mode = mode[0]
+mode = mode[3]
 pipe = StableDiffusionPipeline.from_pretrained(model_id, use_auth_token=True).to(device)
 
-scheduler = 'UniPCMultistepScheduler'
-from diffusers import LMSDiscreteScheduler, DDPMScheduler, DPMSolverSDEScheduler, DDIMScheduler, EulerDiscreteScheduler,EDMEulerScheduler,HeunDiscreteScheduler, UniPCMultistepScheduler
-pipe.scheduler = UniPCMultistepScheduler.from_config(pipe.scheduler.config)
+scheduler = 'PNDMScheduler_copy'
+from diffusers import LMSDiscreteScheduler, DDPMScheduler, DPMSolverSDEScheduler, DDIMScheduler, EulerDiscreteScheduler,EDMEulerScheduler,HeunDiscreteScheduler, UniPCMultistepScheduler,PNDMScheduler
+pipe.scheduler = PNDMScheduler.from_config(pipe.scheduler.config)
 # pipe.scheduler = HeunDiscreteScheduler.from_config(pipe.scheduler.config)
 # pipe.scheduler = EDMEulerScheduler.from_config(pipe.scheduler.config)
 # pipe.scheduler = EulerDiscreteScheduler.from_config(pipe.scheduler.config)
