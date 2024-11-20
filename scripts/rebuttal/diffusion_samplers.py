@@ -97,7 +97,7 @@ mode = ['resample', 'shift gaussian', 'functional', 'natural']
 mode = mode[3]
 pipe = StableDiffusionPipeline.from_pretrained(model_id, use_auth_token=True).to(device)
 
-from diffusers import LMSDiscreteScheduler, DDPMScheduler, DPMSolverSDEScheduler, DDIMScheduler, EulerDiscreteScheduler,EDMEulerScheduler,HeunDiscreteScheduler, UniPCMultistepScheduler, PNDMScheduler
+from diffusers import LMSDiscreteScheduler, DPMSolverSDEScheduler, DDIMScheduler, EulerDiscreteScheduler,HeunDiscreteScheduler, UniPCMultistepScheduler, PNDMScheduler
 from diffusers import KDPM2AncestralDiscreteScheduler, EulerAncestralDiscreteScheduler, DPMSolverSDEScheduler, CMStochasticIterativeScheduler, DDPMScheduler, TCDScheduler, ScoreSdeVeScheduler, KarrasVeScheduler
 
 scheduler = 'DDIMScheduler'
