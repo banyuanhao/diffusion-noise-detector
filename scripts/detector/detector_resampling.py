@@ -144,3 +144,32 @@ def reject_sample_pos(therhold = 0.8, position='left'):
         elif bbox[0]/2 + bbox[2]/2 > 36 and position == 'right' and scores > therhold:
             array = torch.tensor(array.transpose(2,0,1), device='cuda', dtype=torch.float32).unsqueeze(0)
             return array
+        
+        
+def reject_sample_pos_finegrained(therhold = 0.8, position='left'):
+    if position not in ['left_down','left_up','right_down','right_up']:
+        raise ValueError('position must be left_down, left_up, right_down or right_up')
+    while True:
+        seed = torch.randint(0,1000000,(1,)).item()
+        array = torch.randn((1,4,64,64), generator=set_seed(seed), device='cuda', dtype=torch.float32)
+        array = array[0].cpu().numpy().transpose(1,2,0)
+        
+        results = inferencer(array)
+        results = results['predictions'][0]
+        
+        scores = results['scores'][0]
+        bbox = results['bboxes'][0]
+        ## exp1
+        # if bbox[1]/2 + bbox[3]/2 < 32 and position == 'left' and scores > therhold:
+        #     array = torch.tensor(array.transpose(2,0,1), device='cuda', dtype=torch.float32).unsqueeze(0)
+        #     return array
+        # elif bbox[1]/2 + bbox[3]/2 > 32 and position == 'right' and scores > therhold:
+        #     array = torch.tensor(array.transpose(2,0,1), device='cuda', dtype=torch.float32).unsqueeze(0)
+        #     return array
+        # exp2
+        if bbox[0]/2 + bbox[2]/2 < 28 and bbox[1]/2 + bbox[3]/2 < 28 and position == 'left_down' and scores > therhold:
+            array = torch.tensor(array.transpose(2,0,1), device='cuda', dtype=torch.float32).unsqueeze(0)
+            return array
+        elif bbox[0]/2 + bbox[2]/2 > 36 and position == 'right' and scores > therhold:
+            array = torch.tensor(array.transpose(2,0,1), device='cuda', dtype=torch.float32).unsqueeze(0)
+            return array
