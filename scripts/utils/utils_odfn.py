@@ -150,6 +150,7 @@ for key, value in dict_variance_5_class.items():
     variance_5_class[int(key)] = value
 variance_5_class_index_sorted = np.load('scripts/utils/variance_5_class_index_sorted.npy')
 
+np.save('scripts/utils/variance_5_class_index_sorted.npy', variance_5_class_index_sorted)
 
 with open('scripts/utils/detector_results.json', 'r') as f:
     detector_results = json.load(f)
