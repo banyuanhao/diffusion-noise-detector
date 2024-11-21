@@ -167,9 +167,8 @@ def reject_sample_pos_finegrained(therhold = 0.8, position='left'):
         #     array = torch.tensor(array.transpose(2,0,1), device='cuda', dtype=torch.float32).unsqueeze(0)
         #     return array
         # exp2
-        if bbox[0]/2 + bbox[2]/2 < 28 and bbox[1]/2 + bbox[3]/2 < 28 and position == 'left_down' and scores > therhold:
+        if bbox[0]/2 + bbox[2]/2 < 28 and bbox[1]/2 + bbox[3]/2 > 36 and position == 'left_down' and scores > therhold:
             array = torch.tensor(array.transpose(2,0,1), device='cuda', dtype=torch.float32).unsqueeze(0)
             return array
-        elif bbox[0]/2 + bbox[2]/2 > 36 and position == 'right' and scores > therhold:
-            array = torch.tensor(array.transpose(2,0,1), device='cuda', dtype=torch.float32).unsqueeze(0)
-            return array
+        else:
+            raise ValueError('no valid sample found')

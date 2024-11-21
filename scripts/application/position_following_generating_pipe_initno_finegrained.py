@@ -32,10 +32,10 @@ for i in range(200):
     print(i)
     seed = torch.randint(0,1000000,(1,)).item()
     
-    latent = pipe_initno.obtain_noise(prompt='An object in the left down corner', token_indices=[2, 5], guidance_scale=7.5, num_inference_steps=50, K=1, seed=seed).to(device)
+    latent = pipe_initno.obtain_noise(prompt='An object in the left down corner', token_indices=[2, 5, 6], guidance_scale=7.5, num_inference_steps=50, K=1, seed=seed).to(device)
 
     torch.save(latent, path+f'initno/noises/seed_{i}_left_down.pt')
     for j, prompt in enumerate(prompts_left_down):
-        out = pipe_initno(prompt=prompt, latents = latent)
+        out = pipe_initno(prompt=prompt, latents = latent, token_indices=[2, 5, 6])
         out.images[0].save(path+f'initno/images/seed_{i}_prompt_left_down_{j}.png')
     
